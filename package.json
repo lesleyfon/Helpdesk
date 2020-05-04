@@ -1,0 +1,19 @@
+{
+  "name": "helpdesk",
+  "version": "1.0.0",
+  "description": "Backend for help desk. And application by the students for the students",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lesleyfon/Helpdesk.git"
+  },
+  "author": "Lesley Banadzem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lesleyfon/Helpdesk/issues"
+  },
+  "homepage": "https://github.com/lesleyfon/Helpdesk#readme"
+}
