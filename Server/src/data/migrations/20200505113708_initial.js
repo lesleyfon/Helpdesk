@@ -5,7 +5,8 @@ exports.up = async function (knex) {
       table.uuid("uuid").defaultTo(knex.raw("uuid_generate_v4()"));
       table.string("first_name").notNullable();
       table.string("last_name").notNullable();
-      table.string("email").notNullable().unique();
+      table.string("email").notNullable()
+      table.integer("phone_number")
       table.string("password").notNullable();
     });
   await knex.schema
@@ -20,6 +21,6 @@ exports.up = async function (knex) {
 };
 
 exports.down = async function (knex) {
-  await knex.dropTableIfExist("user");
-  await knex.dropTableIfExist("ticket");
+  await knex.schema.dropTableIfExists("user");
+  await knex.schema.dropTableIfExists("ticket");
 };
