@@ -11,7 +11,7 @@ const knexSeedMigration = {
     directory: './src/data/migrations'
   },
   seeds: {
-    directory: './src/data/seeds/dev'
+    directory: './src/data/seeds'
   },
   useNullAsDefault: true
 }
