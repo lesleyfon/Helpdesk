@@ -1,5 +1,8 @@
 const { GraphQLServer } = require("graphql-yoga");
+const dotenv = require("dotenv")
+dotenv.config()
 
+console.log(process.env.PASSWORD)
 const typeDefs = `
     type Query {
         welcome: String!

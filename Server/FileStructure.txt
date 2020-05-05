@@ -1,0 +1,21 @@
+.
+├── package.json
+└── src
+    ├── data
+    |   └── migrations
+    |   └── seeds 
+    │   └── config.js
+    ├── models
+    │   ├── Book.js
+    │   └── index.js
+    ├── resolvers
+    │   ├── booksResolvers.js
+    │   └── index.js
+    └── typeDefs
+    |   ├── index.js
+    |   ├── query.js
+    |    └── types
+    |       ├── bookType.js
+    |       └── index.j
+    |____ Index.js
+    |____ knexfile.js

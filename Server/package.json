@@ -4,7 +4,8 @@
   "description": "Backend for help desk. And application by the students for the students",
   "main": "index.js",
   "scripts": {
-    "test": "jest test --watchAll"
+    "test": "jest test --watchAll",
+    "server" : "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,11 @@
   },
   "homepage": "https://github.com/lesleyfon/Helpdesk#readme",
   "dependencies": {
-    "graphql-yoga": "^1.18.3"
+    "graphql-yoga": "^1.18.3",
+    "knex": "^0.21.1",
+    "pg": "^8.0.3"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
