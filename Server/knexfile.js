@@ -15,9 +15,9 @@ const knexSeedMigration = {
   },
   useNullAsDefault: true
 }
+
 module.exports = {
   development: {
-
     client: "pg",
     ...knexSeedMigration,
     connection: {
@@ -34,9 +34,6 @@ module.exports = {
     pool: {
       min: 2,
       max: 10,
-    },
-    migrations: {
-      tableName: "knex_migrations",
     },
   },
 };
