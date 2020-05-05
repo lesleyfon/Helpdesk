@@ -11,13 +11,13 @@ const knexSeedMigration = {
     directory: './src/data/migrations'
   },
   seeds: {
-    directory: './src/data/seeds/dev'
+    directory: './src/data/seeds'
   },
   useNullAsDefault: true
 }
+
 module.exports = {
   development: {
-
     client: "pg",
     ...knexSeedMigration,
     connection: {
@@ -34,9 +34,6 @@ module.exports = {
     pool: {
       min: 2,
       max: 10,
-    },
-    migrations: {
-      tableName: "knex_migrations",
     },
   },
 };
