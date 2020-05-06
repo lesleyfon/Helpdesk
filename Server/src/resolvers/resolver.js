@@ -1,10 +1,11 @@
 // Module for exporting all the resolvers
-const {allUsers, welcome } = require("./Query")
+const {allUsers, welcome, allTickets } = require("./Query")
 
 
 module.exports= {
     Query : {
         welcome,
-        allUsers
+        allUsers,
+        allTickets,
     }
 }

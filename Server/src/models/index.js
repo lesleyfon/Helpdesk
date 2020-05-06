@@ -1,6 +1,8 @@
 // File for exporting all the models 
-const User = require('./User')
+const UserModel = require('./User');
+const TicketModel = require('./Tickets');
 
 module.exports = {
-    user: new User()
+    user_model: new UserModel(),
+    ticket_model: new TicketModel
 }

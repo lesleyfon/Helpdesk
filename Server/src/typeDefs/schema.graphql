@@ -1,13 +1,22 @@
 type Query {
   welcome: String!
   allUsers: [User!]!
+  allTickets: [Ticket!]!
 }
 
 type User {
-  uuid: ID!
+  id: ID!
   first_name: String!
   last_name: String!
   email: String!
   phone_number: Int
   password: String!
+}
+
+type Ticket {
+  id: ID!
+  title: String!
+  description: String!
+  category: String
+  created_at: String!
 }

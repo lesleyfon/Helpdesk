@@ -2,7 +2,7 @@ exports.up = async function (knex) {
   await knex.schema
     .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     .createTable("user", (table) => {
-      table.uuid("uuid").defaultTo(knex.raw("uuid_generate_v4()"));
+      table.uuid("id").defaultTo(knex.raw("uuid_generate_v4()"));
       table.string("first_name").notNullable();
       table.string("last_name").notNullable();
       table.string("email").notNullable()

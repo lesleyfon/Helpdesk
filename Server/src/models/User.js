@@ -1,11 +1,11 @@
 const db = require("./../data/db.config.js");
 
 class User {
-    name = "users";
+    dbname = "user";
 
 
     fetchAllUser(){
-        return db("user")
+        return db(this.dbname)
     }
 }
 
