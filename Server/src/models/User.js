@@ -5,7 +5,7 @@ class User {
 
 
     fetchAllUser(){
-        return db("users")
+        return db("user")
     }
 }
 

@@ -1,25 +1,13 @@
 
 const { GraphQLServer } = require("graphql-yoga");
-const dotenv = require("dotenv")
-
-
-const typeDefs = `
-    type Query {
-        welcome: String!
-    }
-
-`;
-
-const resolvers = {
-    Query: {
-        welcome: ()=> "Welcome to Help desk queue"
-    }
-};
+const resolvers = require('./resolvers/resolver');
 
 
 const server = new GraphQLServer({
-    typeDefs,
-    resolvers
+  typeDefs: "./src/typeDefs/schema.graphql",
+  resolvers,
 });
 
-server.start(()=> console.log(`GraphQL-yoga listening to http://localhost:4000`));
+server.start(() =>
+  console.log(`GraphQL-yoga listening to http://localhost:4000`)
+);

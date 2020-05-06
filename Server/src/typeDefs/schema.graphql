@@ -1,0 +1,13 @@
+type Query {
+  welcome: String!
+  allUsers: [User!]!
+}
+
+type User {
+  uuid: ID!
+  first_name: String!
+  last_name: String!
+  email: String!
+  phone_number: Int
+  password: String!
+}
