@@ -7,7 +7,6 @@ const connection = {
   user: USER,
   password: DB_PASSWORD
 };
-console.log(connection)
 const knexSeedMigration = {
   migrations: {
     directory: './src/data/migrations'

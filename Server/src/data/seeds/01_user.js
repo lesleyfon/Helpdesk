@@ -8,5 +8,13 @@ exports.seed = async function (knex) {
       email: "Lesley",
       password: "password",
     },
+    {
+      
+      first_name: "Joseph",
+      last_name: "Claude",
+			phone_number: "4152403839",
+      email: "Joseph.claude@yahoo.com",
+      password: "password",
+    },
   ]);
 };

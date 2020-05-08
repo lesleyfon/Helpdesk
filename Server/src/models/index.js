@@ -4,5 +4,5 @@ const TicketModel = require('./Tickets');
 
 module.exports = {
     user_model: new UserModel(),
-    ticket_model: new TicketModel
+    ticket_model: new TicketModel(),
 }

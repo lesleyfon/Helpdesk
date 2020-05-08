@@ -10,7 +10,7 @@ class Query{
     }
 
     async allTickets(){
-        console.log("await ticket_model.fetchAllTickets()")
+        
         return await ticket_model.fetchAllTickets();
     }
 }

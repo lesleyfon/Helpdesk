@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/lesleyfon/Helpdesk#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.18.3",
     "knex": "^0.21.1",
     "knex-cleaner": "^1.3.0",
