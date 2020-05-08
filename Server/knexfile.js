@@ -1,11 +1,13 @@
 // Update with your config settings.
-const dotenv = require("dotenv");
+const pg = require("pg")
+const {DB_NAME, DB_PASSWORD, USER} = require("./configVariables");
 
 const connection = {
-  database: process.env.DB_NAME,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
+  database: DB_NAME,
+  user: USER,
+  password: DB_PASSWORD
 };
+console.log(connection)
 const knexSeedMigration = {
   migrations: {
     directory: './src/data/migrations'
