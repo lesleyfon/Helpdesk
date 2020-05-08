@@ -17,13 +17,21 @@ exports.up = async function (knex) {
       table.text("description", "longtext");
       table.string("category").notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
-      table.string("user-id").unsigned().norNullable().references("id").inTable("user").onUpdate("CASCADE").onDelete("CASCADE");
+      table.string("user-id").unsigned().notNullable().references("id").inTable("user").onUpdate("CASCADE").onDelete("CASCADE");
 
     });
+
+  await knex.schema.createTable("ticket-status", table => {
+    table.increments("id");
+    table.string("state").notNullable().defaultTo("pending");
+    table.string("ticket_it").notNullable().references("id").inTable("ticket").onUpdate("CASCADE").onDelete("CASCADE");
+
+  });
 
 };
 
 exports.down = async function (knex) {
   await knex.schema.dropTableIfExists("user");
   await knex.schema.dropTableIfExists("ticket");
+  await knex.schema.dropTableIfExists("ticket-status")
 };
