@@ -27,11 +27,19 @@ exports.up = async function (knex) {
     table.string("ticket_it").notNullable().references("id").inTable("ticket").onUpdate("CASCADE").onDelete("CASCADE");
 
   });
+  await table.schema.createTable("resolved-tickets", table => {
+    table.increments("id");
+    table.string("solution").notNullable()
+    table.string("ticket_id").notNullable().references("id").inTable("ticket").onDelete("CASCADE").onUpdate("CASCADE");
+    table.string("resolved-by").notNullable().references("id").inTable("user").onDelete("CASCADE").onUpdate("CASCADE");
+
+  })
 
 };
 
 exports.down = async function (knex) {
   await knex.schema.dropTableIfExists("user");
   await knex.schema.dropTableIfExists("ticket");
-  await knex.schema.dropTableIfExists("ticket-status")
+  await knex.schema.dropTableIfExists("ticket-status");
+  await knex.schema.dropTableIfExists("resolved-tickets")
 };
