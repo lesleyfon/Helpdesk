@@ -17,7 +17,10 @@ exports.up = async function (knex) {
       table.text("description", "longtext");
       table.string("category").notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.string("user-id").unsigned().norNullable().references("id").inTable("user").onUpdate("CASCADE").onDelete("CASCADE");
+
     });
+
 };
 
 exports.down = async function (knex) {
