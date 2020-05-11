@@ -4,6 +4,10 @@ const { hashPassword, verifyPassword } = require("./../utils/hashpassword");
 
 class Mutations {
   async signup(root, args, context) {
+
+    const checkIfUserExist = await user_model.findUser({ email: args.email });
+    if(checkIfUserExist) throw Error(`User with email ${args.email} already exist. Try a different email`)
+
     const hPassword = await hashPassword(args.password);
 
     const { password, ...user } = await user_model.signup({
@@ -27,19 +31,20 @@ class Mutations {
    * @param {*} context = The context argument is a plain JavaScript object that every resolver in the resolver chain can read from and write to - it thus basically is a means for resolvers to communicate.
    */
   async login(root, args, context) {
-    
-    const { password, ...user } = await user_model.findUser({email: args.email });
+    const { password, ...user } = await user_model.findUser({
+      email: args.email,
+    });
 
-
-    if (!user) throw Error(`User with the email of ${args.email} doesn't exist`);
+    if (!user)
+      throw Error(`User with the email of ${args.email} doesn't exist`);
 
     const comparePassword = await verifyPassword(args.password, password);
 
     if (!comparePassword) throw Error(`Invalid password`);
-    
+
     return {
       token: signToken({ userId: user.id, email: user.email }),
-      user
+      user,
     };
   }
 }
