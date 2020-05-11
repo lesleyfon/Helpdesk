@@ -17,7 +17,7 @@ exports.up = async function (knex) {
       table.text("description", "longtext");
       table.string("category").notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
-      table.uuid("user_id").unsigned().notNullable().references("id").inTable("user").onUpdate("CASCADE").onDelete("CASCADE");
+      table.uuid("created_by").unsigned().notNullable().references("id").inTable("user").onUpdate("CASCADE").onDelete("CASCADE");
 
     });
 
