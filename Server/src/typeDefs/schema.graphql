@@ -19,6 +19,7 @@ type Ticket {
   description: String!
   category: String
   created_at: String!
+  user_id: String! 
 }
 
 type AuthPayLoad {
@@ -29,4 +30,5 @@ type AuthPayLoad {
 type Mutation {
   signup( first_name: String! last_name: String! password: String email: String! phone_number: String): AuthPayLoad
   login(email: String!, password: String!): AuthPayLoad
+  addTicket(title: String! description: String! category: String user_id:String) : Ticket!
 }
