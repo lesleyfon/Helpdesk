@@ -21,13 +21,12 @@ type Ticket {
   created_at: String!
 }
 
-type AuthPayLoad{
+type AuthPayLoad {
   token: String!
   user: User
 }
 
 type Mutation {
-  signup( first_name: String!, last_name: String!, password: String, email: String!, phone_number: String ): AuthPayLoad
-  # signup(email: String!, name: String!, password: String!): AuthPayLoad
-
+  signup( first_name: String! last_name: String! password: String email: String! phone_number: String): AuthPayLoad
+  login(email: String!, password: String!): AuthPayLoad
 }
