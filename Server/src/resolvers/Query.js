@@ -17,6 +17,21 @@ class Query{
     
         return await ticket_model.fetchAllTickets();
     }
+
+    async fetchTicket(root, args, context ){
+        await AuthUser(context);
+
+        const {user_id, ...ticket} = await ticket_model.findTicket({id: args.id});
+
+        const user = await user_model.findUser({id: user_id});
+
+        return {
+            ...ticket,
+            created_by: {
+                ...user
+            }
+        };
+    }
 }
 
 

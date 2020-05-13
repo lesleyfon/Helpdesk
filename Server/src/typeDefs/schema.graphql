@@ -2,6 +2,7 @@ type Query {
   welcome: String!
   allUsers: [User!]!
   allTickets: [Ticket!]!
+  fetchTicket(id: String!): Ticket!
 }
 
 type User {
@@ -19,7 +20,7 @@ type Ticket {
   description: String!
   category: String
   created_at: String!
-  created_by: String! 
+  created_by(user_id: String!): User! 
 }
 
 type AuthPayLoad {
