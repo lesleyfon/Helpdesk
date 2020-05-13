@@ -32,6 +32,13 @@ class Query{
             }
         };
     }
+
+    async allTicketStatus(root, args, context){
+        await AuthUser(context);
+        const allStatus = await ticket_model.allTicketStatus();
+        console.log(allStatus);
+        return allStatus;
+    }
 }
 
 

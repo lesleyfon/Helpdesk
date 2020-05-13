@@ -3,6 +3,7 @@ type Query {
   allUsers: [User!]!
   allTickets: [Ticket!]!
   fetchTicket(id: String!): Ticket!
+  allTicketStatus: [Status!]!
 }
 
 type User {
@@ -26,6 +27,12 @@ type Ticket {
 type AuthPayLoad {
   token: String!
   user: User
+}
+
+type Status{
+  id: ID!
+  state: String,
+  ticket_id: ID!
 }
 
 type Mutation {
