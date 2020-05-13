@@ -1,18 +1,20 @@
 const { user_model, ticket_model } = require('./../models/index');
-const { getUserDetails } = require("./../utils/utils");
+const { getUserDetails: AuthUser } = require("./../utils/utils");
 
 class Query{
 
     welcome(){
         return "Welcome to Help Desk"
     }
-     async allUsers () {
+     async allUsers (root, args, context) {
+        await AuthUser(context);
         return await user_model.fetchAllUser()
     }
 
     async allTickets(root, args, context){
-        const userDetails = await getUserDetails(context);
-
+        
+        await AuthUser(context);
+    
         return await ticket_model.fetchAllTickets();
     }
 }
