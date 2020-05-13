@@ -53,8 +53,6 @@ class Mutations {
   async addTicket(root, args, context){
     const ticket  = await ticket_model.createTicket(args);
 
-    console.log(ticket)
-
     return ticket;
 
   }

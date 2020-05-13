@@ -9,11 +9,11 @@ exports.getUserDetails = async function (context) {
   if (!Authorization) throw Error("You are not Authorized");
 
   const token = Authorization.replace("Bearer", "");
-  console.log(token)
+  
   const { userId, email } = verifyToken(token);
 
   const user = await user_model.findUser({ id : userId, email});
-  
+
   if(!user.email || !user.id) throw Error("Invalid User");
 
   return {

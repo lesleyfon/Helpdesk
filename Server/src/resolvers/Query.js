@@ -12,7 +12,7 @@ class Query{
 
     async allTickets(root, args, context){
         const userDetails = await getUserDetails(context);
-        console.log(userDetails)
+
         return await ticket_model.fetchAllTickets();
     }
 }
