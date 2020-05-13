@@ -1,4 +1,5 @@
 const { user_model, ticket_model } = require('./../models/index');
+const { getUserDetails } = require("./../utils/utils");
 
 class Query{
 
@@ -9,8 +10,9 @@ class Query{
         return await user_model.fetchAllUser()
     }
 
-    async allTickets(){
-        
+    async allTickets(root, args, context){
+        const userDetails = await getUserDetails(context);
+        console.log(userDetails)
         return await ticket_model.fetchAllTickets();
     }
 }
