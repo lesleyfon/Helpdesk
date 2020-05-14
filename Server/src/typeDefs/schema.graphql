@@ -2,6 +2,8 @@ type Query {
   welcome: String!
   allUsers: [User!]!
   allTickets: [Ticket!]!
+  fetchTicket(id: String!): Ticket!
+  allTicketStatus: [Status!]!
 }
 
 type User {
@@ -19,10 +21,22 @@ type Ticket {
   description: String!
   category: String
   created_at: String!
+  created_by(user_id: String!): User! 
+}
+
+type AuthPayLoad {
+  token: String!
+  user: User
+}
+
+type Status{
+  id: ID!
+  state: String,
+  ticket_id: ID!
 }
 
 type Mutation {
-  signup( first_name: String!, last_name: String!, password: String, email: String!, phone_number: String ): User!
-  # signup(email: String!, name: String!, password: String!): AuthPayLoad
-
+  signup( first_name: String! last_name: String! password: String email: String! phone_number: String): AuthPayLoad
+  login(email: String!, password: String!): AuthPayLoad
+  addTicket(title: String! description: String! category: String created_by:String) : Ticket!
 }

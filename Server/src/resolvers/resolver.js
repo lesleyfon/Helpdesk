@@ -1,16 +1,19 @@
 // Module for exporting all the resolvers
-const {allUsers, welcome, allTickets } = require("./Query");
-const { signup } = require('./Mutation');
+const {allUsers, welcome, allTickets, fetchTicket, allTicketStatus } = require("./Query");
+const { signup, login, addTicket } = require('./Mutation');
 
-console.log("hello")
 module.exports= {
     Query : {
         welcome,
         allUsers,
         allTickets,
+        fetchTicket,
+        allTicketStatus
     },
 
     Mutation : {
         signup,
+        login, 
+        addTicket
     }
 }

@@ -5,7 +5,7 @@ exports.seed = async knex => {
             title: "Front end Test/ Test Failing ",
             description: "font end test failing after mocking redux store and react router dom",
             category: "FrontEnd test",
-            [`user-id`]: "92783295-eae2-4f6b-b434-25127243da6c"
+            [`created_by`]: "6846bf46-c568-4abc-a89a-686d46437f2a",
             
         }
     ])

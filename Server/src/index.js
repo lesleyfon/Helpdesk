@@ -6,6 +6,9 @@ const resolvers = require('./resolvers/resolver');
 const server = new GraphQLServer({
   typeDefs: "./src/typeDefs/schema.graphql",
   resolvers,
+  context: request =>({
+    ...request
+  })
 });
 
 server.start(() =>
