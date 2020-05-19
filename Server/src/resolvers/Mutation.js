@@ -1,14 +1,15 @@
 const { user_model, ticket_model } = require("./../models/index");
-const { signToken } = require("./../utils/jwt");
+const { signToken, verifyToken } = require("./../utils/jwt");
+const {getUserDetails} = require('./../utils/utils')
 const { hashPassword, verifyPassword } = require("./../utils/hashpassword");
 
 class Mutations {
-
-
   async signup(root, args, context) {
-
     const checkIfUserExist = await user_model.findUser({ email: args.email });
-    if(checkIfUserExist) throw Error(`User with email ${args.email} already exist. Try a different email`)
+    if (checkIfUserExist)
+      throw Error(
+        `User with email ${args.email} already exist. Try a different email`
+      );
 
     const hPassword = await hashPassword(args.password);
 
@@ -37,7 +38,8 @@ class Mutations {
       email: args.email,
     });
 
-    if (!user) throw Error(`User with the email of ${args.email} doesn't exist`);
+    if (!user)
+      throw Error(`User with the email of ${args.email} doesn't exist`);
 
     const comparePassword = await verifyPassword(args.password, password);
 
@@ -49,12 +51,17 @@ class Mutations {
     };
   }
 
+  async addTicket(root, args, context) {
 
-  async addTicket(root, args, context){
-    const ticket  = await ticket_model.createTicket(args);
+    const { userId } = await getUserDetails(context)
+
+    const ticket = await ticket_model.createTicket({
+      ...args,
+      user_id: userId,
+    });
+
 
     return ticket;
-
   }
 }
 
