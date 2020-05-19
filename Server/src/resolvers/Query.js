@@ -43,10 +43,19 @@ class Query{
 
     async allResolvedTickets(root, args, context){
         await AuthUser(context);
-        const resolvedTickets= await ticket_model.resolvedTickets();
-        
-        return resolvedTickets
+        const resolvedTicketsInfo = await ticket_model.resolvedTickets();
+
+
+
+        return resolvedTicketsInfo.map(async info => ({
+            id: info.id,
+            solution: info.solution,
+            ticket: await ticket_model.findTicket({id: info.ticket_id}),
+            resolved_by: await user_model.findUser({id: info.resolved_by})
+        }))
     }
+
+
 }
 
 

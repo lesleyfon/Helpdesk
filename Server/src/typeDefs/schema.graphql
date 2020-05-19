@@ -34,9 +34,10 @@ type AuthPayLoad {
 type ResolvedTickets {
   id: ID!
   solution: String!
-  ticket_id: ID!
-  resolved_by:ID!
+  ticket: Ticket!
+  resolved_by: User!
 }
+
 type Status{
   id: ID!
   state: String
