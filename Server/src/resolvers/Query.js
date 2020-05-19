@@ -39,6 +39,14 @@ class Query{
         console.log(allStatus);
         return allStatus;
     }
+
+
+    async allResolvedTickets(root, args, context){
+        await AuthUser(context);
+        const resolvedTickets = await ticket_model.resolvedTickets();
+        
+        return resolvedTickets
+    }
 }
 
 
