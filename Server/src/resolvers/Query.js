@@ -43,7 +43,7 @@ class Query{
 
     async allResolvedTickets(root, args, context){
         await AuthUser(context);
-        const resolvedTickets = await ticket_model.resolvedTickets();
+        const resolvedTickets= await ticket_model.resolvedTickets();
         
         return resolvedTickets
     }
