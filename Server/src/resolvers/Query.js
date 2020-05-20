@@ -3,6 +3,9 @@ const { getUserDetails: AuthUser } = require("./../utils/utils");
 
 class Query{
 
+    /**
+     * Test Query: 
+     */
     welcome(){
         return "Welcome to Help Desk"
     }
@@ -36,16 +39,15 @@ class Query{
     async allTicketStatus(root, args, context){
         await AuthUser(context);
         const allStatus = await ticket_model.allTicketStatus();
-        console.log(allStatus);
+
         return allStatus;
     }
 
 
     async allResolvedTickets(root, args, context){
         await AuthUser(context);
+
         const resolvedTicketsInfo = await ticket_model.resolvedTickets();
-
-
 
         return resolvedTicketsInfo.map(async info => ({
             id: info.id,
@@ -53,6 +55,19 @@ class Query{
             ticket: await ticket_model.findTicket({id: info.ticket_id}),
             resolved_by: await user_model.findUser({id: info.resolved_by})
         }))
+    }
+
+    async ticketStatus(root, args, context){
+        await AuthUser(context);
+        const {ticket_id } = args;
+
+        const {id, state, ...ticket} = await ticket_model.ticketStatus(ticket_id);
+
+        return {
+            id,
+            state,
+            ticket
+        };
     }
 
 

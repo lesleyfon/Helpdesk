@@ -5,7 +5,9 @@ const { hashPassword, verifyPassword } = require("./../utils/hashpassword");
 
 class Mutations {
   async signup(root, args, context) {
+
     const checkIfUserExist = await user_model.findUser({ email: args.email });
+
     if (checkIfUserExist)
       throw Error(
         `User with email ${args.email} already exist. Try a different email`
@@ -51,6 +53,8 @@ class Mutations {
     };
   }
 
+
+  // Creating a new ticket
   async addTicket(root, args, context) {
 
     const { userId } = await getUserDetails(context)
@@ -60,9 +64,10 @@ class Mutations {
       user_id: userId,
     });
 
-
     return ticket;
   }
+
+  
 }
 
 module.exports = new Mutations();

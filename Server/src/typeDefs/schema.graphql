@@ -5,7 +5,7 @@ type Query {
   fetchTicket(id: String!): Ticket!
   allTicketStatus: [Status!]!
   allResolvedTickets: [ResolvedTickets!]!
-
+  ticketStatus(ticket_id: ID!): Status!
 }
 
 type User {
@@ -41,7 +41,8 @@ type ResolvedTickets {
 type Status{
   id: ID!
   state: String
-  ticket_id: ID!
+  ticket: Ticket!
+
 }
 
 type Mutation {
