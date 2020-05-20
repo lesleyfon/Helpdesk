@@ -5,7 +5,7 @@ type Query {
   fetchTicket(id: String!): Ticket!
   allTicketStatus: [Status!]!
   allResolvedTickets: [ResolvedTickets!]!
-
+  ticketStatus(ticket_id: ID!): Status!
 }
 
 type User {
@@ -41,11 +41,13 @@ type ResolvedTickets {
 type Status{
   id: ID!
   state: String
-  ticket_id: ID!
+  ticket: Ticket!
+
 }
 
 type Mutation {
   signup( first_name: String! last_name: String! password: String email: String! phone_number: String): AuthPayLoad
   login(email: String!, password: String!): AuthPayLoad
   addTicket(title: String! description: String! category: String created_by:String) : Ticket!
+  solveATicket(solution:String!, ticket_id: ID!, solved_by: ID!): ResolvedTickets!
 }
