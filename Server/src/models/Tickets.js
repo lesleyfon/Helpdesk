@@ -24,6 +24,7 @@ class Tickets {
     return db("resolved-tickets");
   }
   async ticketStatus(ticket_id) {
+
     const ticket = await db(this.tableName).join(
       `ticket-status`,
       `ticket-status.ticket_id`,
@@ -33,6 +34,22 @@ class Tickets {
     ).first();
 
     return ticket;
+  }
+
+  async solveTicket({solution, ticket_id, solved_by }){
+    const [ticketStatus] = await db("ticket-status").where({ticket_id}).update({"state" : "solved"}).returning("*");
+    const [ticketSolution] = await db("resolved-tickets").where({ ticket_id }).update({
+        solution,
+        resolved_by: solved_by,
+        ticket_id
+    }).returning("*");
+
+    console.log(ticketStatus);
+    console.log(ticketSolution);
+
+    return {
+
+    }
   }
 }
 

@@ -1,11 +1,10 @@
 const { user_model, ticket_model } = require("./../models/index");
 const { signToken, verifyToken } = require("./../utils/jwt");
-const {getUserDetails} = require('./../utils/utils')
+const { getUserDetails } = require("./../utils/utils");
 const { hashPassword, verifyPassword } = require("./../utils/hashpassword");
 
 class Mutations {
   async signup(root, args, context) {
-
     const checkIfUserExist = await user_model.findUser({ email: args.email });
 
     if (checkIfUserExist)
@@ -53,11 +52,9 @@ class Mutations {
     };
   }
 
-
   // Creating a new ticket
   async addTicket(root, args, context) {
-
-    const { userId } = await getUserDetails(context)
+    const { userId } = await getUserDetails(context);
 
     const ticket = await ticket_model.createTicket({
       ...args,
@@ -67,7 +64,11 @@ class Mutations {
     return ticket;
   }
 
-  
+  async solveATicket(root, args, context) {
+    const {solution, ticket_id, solved_by }= args;
+
+    const resolvedTicket =  await ticket_model.solveTicket({solution, ticket_id, solved_by})
+  }
 }
 
 module.exports = new Mutations();
