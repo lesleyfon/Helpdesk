@@ -44,10 +44,14 @@ class Tickets {
         ticket_id
     }).returning("*");
 
-    console.log(ticketStatus);
-    console.log(ticketSolution);
+    const ticket = this.findTicket({id: ticketSolution.ticket_id});
+    const resolved_by = db("user").where({id: ticketSolution.resolved_by}).first()
 
     return {
+        id: ticketSolution.id,
+        solution: ticketSolution.solution,
+        ticket,
+        resolved_by
 
     }
   }
