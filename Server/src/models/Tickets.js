@@ -24,36 +24,39 @@ class Tickets {
     return db("resolved-tickets");
   }
   async ticketStatus(ticket_id) {
-
-    const ticket = await db(this.tableName).join(
-      `ticket-status`,
-      `ticket-status.ticket_id`,
-      `${this.tableName}.id`
-    ).where(
-        `ticket-status.ticket_id`, ticket_id
-    ).first();
+    const ticket = await db(this.tableName)
+      .join(`ticket-status`, `ticket-status.ticket_id`, `${this.tableName}.id`)
+      .where(`ticket-status.ticket_id`, ticket_id)
+      .first();
 
     return ticket;
   }
 
-  async solveTicket({solution, ticket_id, solved_by }){
-    const [ticketStatus] = await db("ticket-status").where({ticket_id}).update({"state" : "solved"}).returning("*");
-    const [ticketSolution] = await db("resolved-tickets").where({ ticket_id }).update({
+  async solveTicket({ solution, ticket_id, solved_by }) {
+    await db("ticket-status")
+      .where({ ticket_id })
+      .update({ state: "solved" })
+      .returning("*");
+    const [ticketSolution] = await db("resolved-tickets")
+      .where({ ticket_id })
+      .update({
         solution,
         resolved_by: solved_by,
-        ticket_id
-    }).returning("*");
+        ticket_id,
+      })
+      .returning("*");
 
-    const ticket = this.findTicket({id: ticketSolution.ticket_id});
-    const resolved_by = db("user").where({id: ticketSolution.resolved_by}).first()
+    const ticket = this.findTicket({ id: ticketSolution.ticket_id });
+    const resolved_by = db("user")
+      .where({ id: ticketSolution.resolved_by })
+      .first();
 
     return {
-        id: ticketSolution.id,
-        solution: ticketSolution.solution,
-        ticket,
-        resolved_by
-
-    }
+      id: ticketSolution.id,
+      solution: ticketSolution.solution,
+      ticket,
+      resolved_by,
+    };
   }
 }
 
