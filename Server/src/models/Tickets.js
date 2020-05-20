@@ -22,6 +22,9 @@ class Tickets {
     async allTicketStatus(){
        return db("ticket-status")
     }
+    resolvedTickets(){
+        return db("resolved-tickets");
+    }
 }
 
 

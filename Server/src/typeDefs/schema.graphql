@@ -4,6 +4,8 @@ type Query {
   allTickets: [Ticket!]!
   fetchTicket(id: String!): Ticket!
   allTicketStatus: [Status!]!
+  allResolvedTickets: [ResolvedTickets!]!
+
 }
 
 type User {
@@ -29,9 +31,16 @@ type AuthPayLoad {
   user: User
 }
 
+type ResolvedTickets {
+  id: ID!
+  solution: String!
+  ticket: Ticket!
+  resolved_by: User!
+}
+
 type Status{
   id: ID!
-  state: String,
+  state: String
   ticket_id: ID!
 }
 
