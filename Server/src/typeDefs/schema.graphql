@@ -23,7 +23,7 @@ type Ticket {
   description: String!
   category: String
   created_at: String!
-  created_by(user_id: String!): User! 
+  created_by(user_id: String!): User!
 }
 
 type AuthPayLoad {
@@ -38,16 +38,35 @@ type ResolvedTickets {
   resolved_by: User!
 }
 
-type Status{
+type Status {
   id: ID!
   state: String
   ticket: Ticket!
-
 }
 
+type DeletedTicket {
+  id: ID!
+  info: String!
+}
 type Mutation {
-  signup( first_name: String! last_name: String! password: String email: String! phone_number: String): AuthPayLoad
+  signup(
+    first_name: String!
+    last_name: String!
+    password: String
+    email: String!
+    phone_number: String
+  ): AuthPayLoad
   login(email: String!, password: String!): AuthPayLoad
-  addTicket(title: String! description: String! category: String created_by:String) : Ticket!
-  solveATicket(solution:String!, ticket_id: ID!, solved_by: ID!): ResolvedTickets!
+  addTicket(
+    title: String!
+    description: String!
+    category: String
+    created_by: String
+  ): Ticket!
+  solveATicket(
+    solution: String!
+    ticket_id: ID!
+    solved_by: ID!
+  ): ResolvedTickets!
+  deleteTicket(id: ID!): DeletedTicket
 }

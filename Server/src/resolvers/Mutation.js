@@ -1,5 +1,5 @@
 const { user_model, ticket_model } = require("./../models/index");
-const { signToken, verifyToken } = require("./../utils/jwt");
+const { signToken } = require("./../utils/jwt");
 const { getUserDetails } = require("./../utils/utils");
 const { hashPassword, verifyPassword } = require("./../utils/hashpassword");
 
@@ -65,6 +65,7 @@ class Mutations {
   }
 
   async solveATicket(root, args, context) {
+    await getUserDetails(context);
     const { solution, ticket_id, solved_by } = args;
 
     const resolvedTicket = await ticket_model.solveTicket({
@@ -74,6 +75,20 @@ class Mutations {
     });
 
     return resolvedTicket;
+  }
+
+  async deleteTicket(_, args, context) {
+    await getUserDetails(context);
+
+    const deletedTicket = await ticket_model.deleteTicket(args);
+
+    if (!deletedTicket)
+      throw new Error(`Ticket with id of ${args.id} has already been deleted`);
+
+    return {
+      id: args.id,
+      info: `Ticket with the ID of ${args} has been deleted`,
+    };
   }
 }
 
