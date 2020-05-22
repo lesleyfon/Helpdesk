@@ -82,6 +82,9 @@ class Mutations {
 
     const deletedTicket = await ticket_model.deleteTicket(args);
 
+    if (!deletedTicket)
+      throw new Error(`Ticket with id of ${args.id} has already been deleted`);
+
     return {
       id: args.id,
       info: `Ticket with the ID of ${args} has been deleted`,
