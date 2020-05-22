@@ -18,7 +18,12 @@ class Tickets {
       ticket_id: newTicket.id,
     });
 
-    return newTicket;
+    const [created_by] = await db("user").where({ id: ticket.user_id });
+
+    return {
+      ...newTicket,
+      created_by,
+    };
   }
 
   // find ticket based on what is passed in as filter

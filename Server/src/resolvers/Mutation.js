@@ -61,6 +61,7 @@ class Mutations {
       user_id: userId,
     });
 
+    console.log(ticket);
     return ticket;
   }
 

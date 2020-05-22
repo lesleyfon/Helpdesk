@@ -24,7 +24,7 @@ type Ticket {
   category: String
   created_at: String!
   # Fix this to not accept id and dynamically return user without accepting the user_id
-  created_by(user_id: String!): User!
+  created_by: User!
 }
 
 type AuthPayLoad {
