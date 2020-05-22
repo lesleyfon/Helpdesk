@@ -25,6 +25,7 @@ type Ticket {
   created_at: String!
   # Fix this to not accept id and dynamically return user without accepting the user_id
   created_by: User!
+  ticket_status: Status!
 }
 
 type AuthPayLoad {

@@ -14,15 +14,18 @@ class Tickets {
 
     const newTicket = await this.findTicket({ title: ticket.title });
     // Create a status for a ticket when  a ticket is created
-    const status = await db("ticket-status").insert({
-      ticket_id: newTicket.id,
-    });
+    const [status] = await db("ticket-status")
+      .insert({
+        ticket_id: newTicket.id,
+      })
+      .returning("*");
 
     const [created_by] = await db("user").where({ id: ticket.user_id });
 
     return {
       ...newTicket,
       created_by,
+      ticket_status: status,
     };
   }
 
