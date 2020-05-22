@@ -84,6 +84,17 @@ class Tickets {
     const ticket = await db(this.tableName).where(id).del();
     return ticket;
   }
+
+  async updateTicket(ticket) {
+    if (!ticket.id) throw new Error(`Ticket Id is needed to update a ticket`);
+
+    const [updatedTicket] = await db(this.tableName)
+      .where({ id: ticket.id })
+      .update(ticket)
+      .returning("*");
+
+    return updatedTicket;
+  }
 }
 
 module.exports = Tickets;

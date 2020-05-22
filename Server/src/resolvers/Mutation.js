@@ -90,6 +90,13 @@ class Mutations {
       info: `Ticket with the ID of ${args} has been deleted`,
     };
   }
+
+  async updateTicket(root, args, context) {
+    await getUserDetails(context);
+    const updatedTicket = await ticket_model.updateTicket(args);
+
+    return updatedTicket;
+  }
 }
 
 module.exports = new Mutations();
