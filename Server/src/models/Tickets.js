@@ -77,6 +77,10 @@ class Tickets {
 
   //Model to Delete a ticket
   async deleteTicket(id) {
+    const ticketToDelete = await this.findTicket(id);
+    if (!ticketToDelete)
+      throw new Error(`Ticket with the id of ${id.id} does not exist`);
+
     const ticket = await db(this.tableName).where(id).del();
     return ticket;
   }
