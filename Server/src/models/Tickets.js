@@ -9,7 +9,11 @@ class Tickets {
 
   async createTicket(ticket) {
     await db(this.tableName).insert(ticket);
+
     const newTicket = await this.findTicket({ title: ticket.title });
+    const status = await db("ticket-status").insert({
+      ticket_id: newTicket.id,
+    });
     return newTicket;
   }
 

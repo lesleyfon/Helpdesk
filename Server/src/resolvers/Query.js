@@ -36,6 +36,7 @@ class Query {
     };
   }
 
+  // Ticket Status
   async allTicketStatus(root, args, context) {
     await AuthUser(context);
     const allStatus = await ticket_model.allTicketStatus();
@@ -43,6 +44,7 @@ class Query {
     return allStatus;
   }
 
+  //all tickets that have been resolved
   async allResolvedTickets(root, args, context) {
     await AuthUser(context);
 
@@ -56,6 +58,7 @@ class Query {
     }));
   }
 
+  // Query a specific ticket status
   async ticketStatus(root, args, context) {
     await AuthUser(context);
     const { ticket_id } = args;
