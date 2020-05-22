@@ -74,6 +74,12 @@ class Tickets {
       resolved_by,
     };
   }
+
+  //Model to Delete a ticket
+  async deleteTicket(id) {
+    const ticket = await db(this.tableName).where(id).del();
+    return ticket;
+  }
 }
 
 module.exports = Tickets;
