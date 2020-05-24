@@ -61,6 +61,7 @@ class Mutations {
       user_id: userId,
     });
 
+    console.log(ticket);
     return ticket;
   }
 
@@ -89,6 +90,13 @@ class Mutations {
       id: args.id,
       info: `Ticket with the ID of ${args} has been deleted`,
     };
+  }
+
+  async updateTicket(root, args, context) {
+    await getUserDetails(context);
+    const updatedTicket = await ticket_model.updateTicket(args);
+
+    return updatedTicket;
   }
 }
 

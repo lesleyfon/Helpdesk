@@ -23,7 +23,9 @@ type Ticket {
   description: String!
   category: String
   created_at: String!
-  created_by(user_id: String!): User!
+  # Fix this to not accept id and dynamically return user without accepting the user_id
+  created_by: User!
+  ticket_status: Status!
 }
 
 type AuthPayLoad {
@@ -69,4 +71,10 @@ type Mutation {
     solved_by: ID!
   ): ResolvedTickets!
   deleteTicket(id: ID!): DeletedTicket
+  updateTicket(
+    id: ID!
+    title: String
+    description: String
+    category: String
+  ): Ticket!
 }

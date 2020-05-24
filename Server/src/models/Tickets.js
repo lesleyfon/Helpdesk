@@ -14,11 +14,19 @@ class Tickets {
 
     const newTicket = await this.findTicket({ title: ticket.title });
     // Create a status for a ticket when  a ticket is created
-    const status = await db("ticket-status").insert({
-      ticket_id: newTicket.id,
-    });
+    const [status] = await db("ticket-status")
+      .insert({
+        ticket_id: newTicket.id,
+      })
+      .returning("*");
 
-    return newTicket;
+    const [created_by] = await db("user").where({ id: ticket.user_id });
+
+    return {
+      ...newTicket,
+      created_by,
+      ticket_status: status,
+    };
   }
 
   // find ticket based on what is passed in as filter
@@ -83,6 +91,17 @@ class Tickets {
 
     const ticket = await db(this.tableName).where(id).del();
     return ticket;
+  }
+
+  async updateTicket(ticket) {
+    if (!ticket.id) throw new Error(`Ticket Id is needed to update a ticket`);
+
+    const [updatedTicket] = await db(this.tableName)
+      .where({ id: ticket.id })
+      .update(ticket)
+      .returning("*");
+
+    return updatedTicket;
   }
 }
 

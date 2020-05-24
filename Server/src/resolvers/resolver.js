@@ -14,6 +14,7 @@ const {
   addTicket,
   solveATicket,
   deleteTicket,
+  updateTicket,
 } = require("./Mutation");
 
 module.exports = {
@@ -33,5 +34,6 @@ module.exports = {
     addTicket,
     solveATicket,
     deleteTicket,
+    updateTicket,
   },
 };
