@@ -6,9 +6,6 @@ import { IoIosPerson, IoMdLock } from "react-icons/all";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-//Styled component => deleted this later
-import styled from "styled-components";
-
 export default class LogIn extends Component {
   state = {
     email: "",
@@ -40,7 +37,7 @@ export default class LogIn extends Component {
       }
     `;
     return (
-      <DIV>
+      <div className="form-fields">
         <div className="user-email input-fields">
           <IoIosPerson />
           <input
@@ -89,7 +86,7 @@ export default class LogIn extends Component {
             </div>
           )}
         </Mutation>
-      </DIV>
+      </div>
     );
   }
 
@@ -98,47 +95,3 @@ export default class LogIn extends Component {
     console.log(this.props);
   }
 }
-
-const DIV = styled.div`
-  margin-top: 50px;
-  .input-fields {
-    width: 60%;
-    margin: 0 auto;
-    height: 45px;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    padding-bottom: 5px;
-  }
-  .input-fields svg {
-    width: 10%;
-    height: 30px;
-    background-color: #e1e9f0;
-    padding: 6px;
-  }
-  .input-fields input {
-    width: 80%;
-    height: 40px;
-    margin: 0px;
-    background-color: #e1e9f0;
-    border: 0px;
-    font-size: 1.3rem;
-    padding-left: 10px;
-  }
-
-  .input-fields input:focus {
-    outline: none;
-  }
-
-  .login-button {
-    width: 60%;
-    height: 45px;
-    margin: 0 auto;
-    text-align: center;
-    background-color: #32bad6;
-    line-height: 45px;
-    font-weight: 200px;
-    margin-top: 20px;
-  }
-`;

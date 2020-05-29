@@ -4,7 +4,8 @@ import React, { Component } from "react";
 import LogIn from "../../Components/LogIn/LogIn";
 import SignUp from "../../Components/SignUp/SignUp";
 
-import styled from "styled-components";
+//styles
+import "./Registration.css";
 
 export default class Registration extends Component {
   state = {
@@ -14,7 +15,7 @@ export default class Registration extends Component {
     const { login } = this.state;
 
     return (
-      <DIV className="registration-container">
+      <div className="registration-container">
         <div className="registration-wrapper">
           <div className="registration-header">
             {login ? "Member Login" : "Member Registration"}
@@ -29,32 +30,7 @@ export default class Registration extends Component {
             {login ? "Create an Account" : "Login"}
           </div>
         </div>
-      </DIV>
+      </div>
     );
   }
 }
-
-const DIV = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  .registration-wrapper {
-    width: 550px;
-    background: #f1f7fc;
-    margin-top: 100px;
-  }
-  .registration-header {
-    background-color: #333c46;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    color: #fcffff;
-    font-weight: bolder;
-    font-size: 1.28rem;
-  }
-
-  .registration-footer {
-    margin-bottom: 70px;
-  }
-`;
