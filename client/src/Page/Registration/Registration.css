@@ -56,13 +56,18 @@
   height: 45px;
   margin: 0 auto;
   text-align: center;
-  background-color: #32bad6;
+  background: #32bad6;
   line-height: 45px;
-  font-weight: 200px;
+  font-weight: bold;
   margin-top: 20px;
+  color: #fcffff;
 }
 .login-button:hover {
   cursor: pointer;
+  background: #ade3ee;
+  transition: ease-in-out;
+  color: #0a252a;
+  transition-duration: 1.3s;
 }
 .registration-footer {
   margin-bottom: 70px;
