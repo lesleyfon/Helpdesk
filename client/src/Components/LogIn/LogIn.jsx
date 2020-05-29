@@ -60,7 +60,7 @@ export default class LogIn extends Component {
             }
           />
         </div>
-        {status && <p>{message}</p>}
+        {status && <p className="registration-error">{message}</p>}
         <Mutation
           mutation={LOGIN_MUTATION}
           variables={{ email, password }}

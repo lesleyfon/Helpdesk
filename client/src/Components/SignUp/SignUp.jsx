@@ -55,7 +55,7 @@ export default class SignUp extends Component {
     `;
     return (
       <div className="form-fields">
-        <div className="input-fields">
+        <div className="input-fields" id="signup-input-id">
           <input
             type="text"
             placeholder="First Name"
@@ -112,7 +112,7 @@ export default class SignUp extends Component {
           />
         </div>
 
-        {status && <p>{message}</p>}
+        {status && <p className="registration-error">{message}</p>}
         <Mutation
           mutation={SIGNUP_MUTATION}
           variables={{ first_name, last_name, email, password, phone_number }}
