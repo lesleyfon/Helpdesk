@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { IoIosPerson, IoMdLock, IoIosPhonePortrait } from "react-icons/io";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 
 export default class SignUp extends Component {
   state = {
@@ -15,6 +17,7 @@ export default class SignUp extends Component {
   };
 
   render() {
+    //destructure State
     const {
       first_name,
       last_name,
@@ -23,9 +26,36 @@ export default class SignUp extends Component {
       phone_number,
       error: { status, message },
     } = this.state;
+
+    // Query Builder
+    const SIGNUP_MUTATION = gql`
+      mutation SignupMutation(
+        $first_name: String!
+        $last_name: String!
+        $password: String!
+        $email: String!
+        $phone_number: String
+      ) {
+        signup(
+          first_name: $first_name
+          last_name: $last_name
+          password: $password
+          email: $email
+          phone_number: $phone_number
+        ) {
+          token
+          user {
+            first_name
+            last_name
+            email
+            phone_number
+          }
+        }
+      }
+    `;
     return (
       <div className="form-fields">
-        <div className="input-fields">
+        <div className="input-fields" id="signup-input-id">
           <input
             type="text"
             placeholder="First Name"
@@ -82,8 +112,32 @@ export default class SignUp extends Component {
           />
         </div>
 
-        <div className="login-button">Sign-Up</div>
+        {status && <p className="registration-error">{message}</p>}
+        <Mutation
+          mutation={SIGNUP_MUTATION}
+          variables={{ first_name, last_name, email, password, phone_number }}
+          onCompleted={(data) => this._authUser(data)}
+          onError={(error) => {
+            this.setState({
+              error: {
+                status: !status,
+                message: error.message.split(":")[1],
+              },
+            });
+          }}
+        >
+          {(mutation) => (
+            <div className="login-button" onClick={mutation}>
+              Sign-Up
+            </div>
+          )}
+        </Mutation>
       </div>
     );
+  }
+
+  _authUser(data) {
+    console.log(data);
+    this.props.history.push("/");
   }
 }

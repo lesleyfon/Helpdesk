@@ -21,7 +21,7 @@ export default class Registration extends Component {
             {login ? "Member Login" : "Member Registration"}
           </div>
           <div className="registration-main">
-            {login ? <LogIn /> : <SignUp />}
+            {login ? <LogIn {...this.props} /> : <SignUp {...this.props} />}
           </div>
           <div
             className="registration-footer"

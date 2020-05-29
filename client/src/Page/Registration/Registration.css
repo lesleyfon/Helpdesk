@@ -23,7 +23,7 @@
   margin-top: 50px;
 }
 .input-fields {
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   height: 45px;
   display: flex;
@@ -32,6 +32,7 @@
   align-items: center;
   padding-bottom: 5px;
 }
+
 .input-fields svg {
   width: 10%;
   height: 30px;
@@ -50,20 +51,34 @@
 .input-fields input:focus {
   outline: none;
 }
-
+#signup-input-id input {
+  width: 46%;
+}
 .login-button {
-  width: 60%;
+  width: 70%;
   height: 45px;
   margin: 0 auto;
   text-align: center;
-  background-color: #32bad6;
+  background: #32bad6;
   line-height: 45px;
-  font-weight: 200px;
+  font-weight: bold;
   margin-top: 20px;
+  color: #fcffff;
 }
 .login-button:hover {
   cursor: pointer;
+  background: #ade3ee;
+  transition: ease-in-out;
+  color: #0a252a;
+  transition-duration: 1.3s;
 }
 .registration-footer {
-  margin-bottom: 70px;
+  width: 70%;
+  color: #a8aeb3;
+  text-align: right;
+  margin: 10px auto 62px auto;
+}
+
+.registration-error {
+  color: red;
 }

@@ -60,7 +60,7 @@ export default class LogIn extends Component {
             }
           />
         </div>
-        {status && <p>{message}</p>}
+        {status && <p className="registration-error">{message}</p>}
         <Mutation
           mutation={LOGIN_MUTATION}
           variables={{ email, password }}
@@ -92,6 +92,6 @@ export default class LogIn extends Component {
 
   _authoriedUser(data) {
     console.log(data);
-    console.log(this.props);
+    this.props.history.push("/");
   }
 }
