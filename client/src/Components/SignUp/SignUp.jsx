@@ -138,5 +138,6 @@ export default class SignUp extends Component {
 
   _authUser(data) {
     console.log(data);
+    this.props.history.push("/");
   }
 }

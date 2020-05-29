@@ -92,6 +92,6 @@ export default class LogIn extends Component {
 
   _authoriedUser(data) {
     console.log(data);
-    console.log(this.props);
+    this.props.history.push("/");
   }
 }
