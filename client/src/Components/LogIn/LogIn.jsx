@@ -31,6 +31,7 @@ const DIV = styled.div`
     justify-content: space-between;
     align-content: center;
     align-items: center;
+    padding-bottom: 5px;
   }
   .input-fields svg {
     width: 10%;
@@ -39,12 +40,13 @@ const DIV = styled.div`
     padding: 6px;
   }
   .input-fields input {
-    width: 83%;
+    width: 80%;
     height: 40px;
     margin: 0px;
     background-color: #e1e9f0;
     border: 0px;
     font-size: 1.3rem;
+    padding-left: 10px;
   }
 
   .input-fields input:focus {
