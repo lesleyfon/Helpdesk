@@ -2,16 +2,39 @@ import React, { Component } from "react";
 //Icons
 import { IoIosPerson, IoMdLock } from "react-icons/all";
 
+// graphQl imports
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
+
+//Styled component => deleted this later
 import styled from "styled-components";
 
 export default class LogIn extends Component {
   state = {
     email: "",
     password: "",
-    error: false,
+    error: {
+      status: false,
+      message: "",
+    },
   };
   render() {
-    const { email, password } = this.state;
+    const {
+      email,
+      password,
+      error: { status, message },
+    } = this.state;
+
+    const LOGIN_MUTATION = gql`
+      mutation LoginMutation($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+          token
+          user {
+            email
+          }
+        }
+      }
+    `;
     return (
       <DIV>
         <div className="user-email input-fields">
@@ -36,11 +59,35 @@ export default class LogIn extends Component {
             }
           />
         </div>
-        <div className="login-button" onClick={() => console.log(this.state)}>
-          Login
-        </div>
+        {status && <p>{message}</p>}
+        <Mutation
+          mutation={LOGIN_MUTATION}
+          variables={{ email, password }}
+          onCompleted={(data) => {
+            this._authoriedUser(data);
+          }}
+          onError={(error) => {
+            this.setState({
+              error: {
+                message: error.message.split(":")[1],
+                status: true,
+              },
+            });
+          }}
+        >
+          {(mutation) => (
+            <div className="login-button" onClick={mutation}>
+              Login
+            </div>
+          )}
+        </Mutation>
       </DIV>
     );
+  }
+
+  _authoriedUser(data) {
+    console.log(data);
+    console.log(this.props);
   }
 }
 
