@@ -9,7 +9,7 @@ import "./Registration.css";
 
 export default class Registration extends Component {
   state = {
-    login: true,
+    login: false,
   };
   render() {
     const { login } = this.state;
