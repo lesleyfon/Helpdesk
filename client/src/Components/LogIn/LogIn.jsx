@@ -31,6 +31,10 @@ export default class LogIn extends Component {
           token
           user {
             email
+            first_name
+            last_name
+            email
+            phone_number
           }
         }
       }
@@ -65,6 +69,10 @@ export default class LogIn extends Component {
           variables={{ email, password }}
           onCompleted={(data) => {
             this._authoriedUser(data);
+            this.setState({
+              email: "",
+              password: "",
+            });
           }}
           onError={(error) => {
             this.setState({
