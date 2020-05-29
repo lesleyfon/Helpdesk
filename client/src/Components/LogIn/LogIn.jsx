@@ -5,16 +5,39 @@ import { IoIosPerson, IoMdLock } from "react-icons/all";
 import styled from "styled-components";
 
 export default class LogIn extends Component {
+  state = {
+    email: "",
+    password: "",
+    error: false,
+  };
   render() {
+    const { email, password } = this.state;
     return (
       <DIV>
         <div className="user-email input-fields">
           <IoIosPerson />
-          <input />
+          <input
+            name="email"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(event) => this.setState({ email: event.target.value })}
+          />
         </div>
         <div className="user-password input-fields">
           <IoMdLock />
-          <input />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(event) =>
+              this.setState({ password: event.target.value })
+            }
+          />
+        </div>
+        <div className="login-button" onClick={() => console.log(this.state)}>
+          Login
         </div>
       </DIV>
     );
@@ -51,5 +74,16 @@ const DIV = styled.div`
 
   .input-fields input:focus {
     outline: none;
+  }
+
+  .login-button {
+    width: 60%;
+    height: 45px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #32bad6;
+    line-height: 45px;
+    font-weight: 200px;
+    margin-top: 20px;
   }
 `;

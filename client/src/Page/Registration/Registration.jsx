@@ -15,17 +15,19 @@ export default class Registration extends Component {
 
     return (
       <DIV className="registration-container">
-        <div className="registration-header">
-          {login ? "Member Login" : "Member Registration"}
-        </div>
-        <div className="registration-main">
-          {login ? <LogIn /> : <SignUp />}
-        </div>
-        <div
-          className="registration-footer"
-          onClick={() => this.setState({ login: !login })}
-        >
-          {login ? "Create an Account" : "Login"}
+        <div className="registration-wrapper">
+          <div className="registration-header">
+            {login ? "Member Login" : "Member Registration"}
+          </div>
+          <div className="registration-main">
+            {login ? <LogIn /> : <SignUp />}
+          </div>
+          <div
+            className="registration-footer"
+            onClick={() => this.setState({ login: !login })}
+          >
+            {login ? "Create an Account" : "Login"}
+          </div>
         </div>
       </DIV>
     );
@@ -33,12 +35,15 @@ export default class Registration extends Component {
 }
 
 const DIV = styled.div`
-  width: 550px;
-  background: #f1f7fc;
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  .registration-wrapper {
+    width: 550px;
+    background: #f1f7fc;
+    margin-top: 100px;
+  }
   .registration-header {
     background-color: #333c46;
     height: 50px;
