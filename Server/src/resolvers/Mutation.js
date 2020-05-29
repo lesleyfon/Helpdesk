@@ -5,6 +5,9 @@ const { hashPassword, verifyPassword } = require("./../utils/hashpassword");
 
 class Mutations {
   async signup(_, args, context) {
+    if (!args.first_name || !args.last_name || !args.email || !args.password)
+      throw new Error("Please provide all necessary information to SignUp");
+
     const checkIfUserExist = await user_model.findUser({ email: args.email });
 
     if (checkIfUserExist)
