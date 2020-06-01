@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
+// Styles
+import "./Header.css";
 export default class Header extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-mainbg">
-        <div className="navbar-brand navbar-logo">Navbar</div>
+        <div className="navbar-brand navbar-logo">Help Desk</div>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
@@ -16,11 +18,9 @@ export default class Header extends Component {
             <li className="nav-item">
               <i className="fas fa-tachometer-alt"></i>Dashboard
             </li>
-            <li className="nav-item active">
-              <i className="far fa-address-book"></i>About Us
-            </li>
+
             <li className="nav-item">
-              <i className="far fa-clone"></i>Components
+              <i className="far fa-clone"></i>Add a Ticket
             </li>
             <li className="nav-item">
               <i className="far fa-calendar-alt"></i>Profile
@@ -28,8 +28,8 @@ export default class Header extends Component {
             <li className="nav-item">
               <i className="far fa-chart-bar"></i>Tickets
             </li>
-            <li className="nav-item">
-              <i className="far fa-copy"></i>Documents
+            <li className="nav-item active">
+              <i className="far fa-address-book"></i>About Us
             </li>
           </ul>
         </div>

@@ -9,6 +9,7 @@ import Header from "./Components/Header/Header";
 // Styles
 import "./App.css";
 import { AUTH_TOKEN } from "./constants";
+import Home from "./Page/Home/Home";
 
 class App extends Component {
   componentDidMount() {
@@ -31,6 +32,8 @@ class App extends Component {
           exact
           component={(props) => <Registration {...props} />}
         />
+
+        <Route exact path="/home" component={(props) => <Home {...props} />} />
       </div>
     );
   }
