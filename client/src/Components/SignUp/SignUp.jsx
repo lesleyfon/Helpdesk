@@ -31,8 +31,8 @@ export default class SignUp extends Component {
     } = this.state;
 
     // Query Builder
-    const SIGNUP_MUTATION = gql`
-      mutation SignupMutation(
+    const SIGN_UP_MUTATION = gql`
+      mutation Sign_UpMutation(
         $first_name: String!
         $last_name: String!
         $password: String!
@@ -117,7 +117,7 @@ export default class SignUp extends Component {
 
         {status && <p className="registration-error">{message}</p>}
         <Mutation
-          mutation={SIGNUP_MUTATION}
+          mutation={SIGN_UP_MUTATION}
           variables={{ first_name, last_name, email, password, phone_number }}
           onCompleted={(data) => this._authUser(data)}
           onError={(error) => {
