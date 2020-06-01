@@ -6,6 +6,8 @@ import { IoIosPerson, IoMdLock } from "react-icons/all";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
+//Constants
+import { AUTH_TOKEN } from "./../../constants";
 export default class LogIn extends Component {
   state = {
     email: "",
@@ -65,7 +67,7 @@ export default class LogIn extends Component {
           mutation={LOGIN_MUTATION}
           variables={{ email, password }}
           onCompleted={(data) => {
-            this._authoriedUser(data);
+            this._authorizedUser(data);
             this.setState({
               email: "",
               password: "",
@@ -90,8 +92,9 @@ export default class LogIn extends Component {
     );
   }
 
-  _authoriedUser(data) {
-    console.log(data);
-    this.props.history.push("/");
+  _authorizedUser(data) {
+    const { token } = data;
+    localStorage.setItem(AUTH_TOKEN, token);
+    this.props.history.push("/home");
   }
 }

@@ -10,7 +10,7 @@ import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 // App Component
-import App from "./App";
+import App from "./App.jsx";
 
 // Connecting to the api exposed by the graphql server
 
