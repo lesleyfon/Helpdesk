@@ -49,7 +49,7 @@ class Mutations {
       throw Error(`User with the email of ${args.email} doesn't exist`);
 
     const { password, ...user } = dbUser;
-    console.log(password);
+
     const comparePassword = await verifyPassword(args.password, password);
 
     if (!comparePassword) throw Error(`Invalid password`);
@@ -69,7 +69,6 @@ class Mutations {
       user_id: userId,
     });
 
-    console.log(ticket);
     return ticket;
   }
 

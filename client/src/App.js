@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 //Components
 import Registration from "./Page/Registration/Registration";
+import Header from "./Components/Header/Header";
+
 // Styles
 import "./App.css";
 import { AUTH_TOKEN } from "./constants";
@@ -20,7 +22,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">Help Desk</header>
+        <header className="App-header">
+          {" "}
+          <Header />{" "}
+        </header>
         <Route
           path="/register"
           exact
