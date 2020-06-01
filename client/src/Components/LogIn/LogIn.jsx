@@ -67,7 +67,7 @@ export default class LogIn extends Component {
           mutation={LOGIN_MUTATION}
           variables={{ email, password }}
           onCompleted={(data) => {
-            this._authoriedUser(data);
+            this._authorizedUser(data);
             this.setState({
               email: "",
               password: "",
@@ -92,7 +92,7 @@ export default class LogIn extends Component {
     );
   }
 
-  _authoriedUser(data) {
+  _authorizedUser(data) {
     const { token, user } = data;
     localStorage.setItem(AUTH_TOKEN, token);
     this.props.history.push("/home");

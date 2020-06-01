@@ -3,6 +3,9 @@ import { IoIosPerson, IoMdLock, IoIosPhonePortrait } from "react-icons/io";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
+//Constants
+import { AUTH_TOKEN } from "./../../constants";
+
 export default class SignUp extends Component {
   state = {
     first_name: "",
@@ -136,8 +139,9 @@ export default class SignUp extends Component {
     );
   }
 
-  _authUser(data) {
-    console.log(data);
-    this.props.history.push("/");
+  _authorizedUser(data) {
+    const { token } = data;
+    localStorage.setItem(AUTH_TOKEN, token);
+    this.props.history.push("/home");
   }
 }
