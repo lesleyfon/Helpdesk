@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 //Component
-import Users from "../../Components/Users.js/Users";
+import Users from "../../Components/Users.js/UsersList";
 
 //Styles
 import "./Home.css";

@@ -1,4 +1,30 @@
-.user-container {
-  border-right: 1px solid darkgray;
+.user-list-container {
   min-height: 100vh;
+  min-width: 100%;
+  margin-top: 5px;
+}
+
+.user-card {
+  width: 100%;
+  display: flex;
+  /* height: 50px; */
+  border: 1px solid bisque;
+  margin-bottom: 5px;
+}
+
+.profile-image {
+  min-width: 25%;
+}
+.profile-image img {
+  width: 100px;
+  height: 100px;
+  margin-top: 25%;
+  box-sizing: content-box;
+}
+.user-details {
+  text-align: left;
+  padding-left: 15px;
+  min-width: 70%;
+}
+.user-details-name {
 }
