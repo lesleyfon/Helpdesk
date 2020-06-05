@@ -5,7 +5,7 @@ function TicketCard({ ticket }) {
 
   return (
     <div>
-      <div key={ticket.id} className="ticket-details">
+      <div className="ticket-details">
         <p className="ticket-title"> Question: {ticket.title}</p>
         <p className="ticket-description">{ticket.description}</p>
         <div id="small">

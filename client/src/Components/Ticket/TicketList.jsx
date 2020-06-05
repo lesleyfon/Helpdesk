@@ -7,6 +7,10 @@ import gql from "graphql-tag";
 import "./Ticket.css";
 import TicketCard from "./TicketCard";
 export default class TicketList extends Component {
+  state = {
+    search_ticket: "",
+  };
+
   //Fetch Query
   Ticket_Mutation = gql`
     query {
@@ -26,6 +30,8 @@ export default class TicketList extends Component {
 
   render() {
     return (
+      // Work on Search functionality
+      //
       <>
         <Query query={this.Ticket_Mutation}>
           {(results) => {
@@ -47,13 +53,17 @@ export default class TicketList extends Component {
                         type="text"
                         name="search_ticket"
                         placeholder="Search a Ticket"
+                        value={this.state.search_ticket}
+                        onChange={(event) =>
+                          this.setState({ search_ticket: event.target.value })
+                        }
                       />
                       <div>Search</div>
                     </div>
                   </div>
 
                   {allTickets.map((ticket) => (
-                    <TicketCard ticket={ticket} />
+                    <TicketCard ticket={ticket} key={ticket.id} />
                   ))}
                 </div>
               );
