@@ -22,3 +22,5 @@ export default class Home extends Component {
     );
   }
 }
+
+//Add search Functionality
