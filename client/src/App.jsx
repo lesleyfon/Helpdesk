@@ -16,7 +16,7 @@ import AddTicket from "./Components/AddTicket.js/AddTicket";
 
 class App extends Component {
   state = {
-    display_modal: false,
+    display_modal: true,
   };
   componentDidMount() {
     const token = localStorage.getItem(AUTH_TOKEN);
