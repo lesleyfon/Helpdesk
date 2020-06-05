@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 //Component
 import Users from "../../Components/Users.js/UsersList";
+import TicketList from "../../Components/Ticket/TicketList";
 
 //Styles
 import "./Home.css";
@@ -14,7 +15,9 @@ export default class Home extends Component {
           {" "}
           <Users />
         </div>
-        <div className="tickets main"></div>
+        <div className="tickets main">
+          <TicketList />
+        </div>
       </div>
     );
   }
