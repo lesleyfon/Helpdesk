@@ -6,28 +6,35 @@ import gql from "graphql-tag";
 //Styles
 import "./Ticket.css";
 export default class TicketList extends Component {
-  render() {
-    // created_by: User!
-    // ticket_status: Status!
-    const Ticket_Mutation = gql`
-      query {
-        allTickets {
-          id
-          title
-          description
-          category
-          created_at
-        }
+  //Fetch Query
+  Ticket_Mutation = gql`
+    query {
+      allTickets {
+        id
+        title
+        description
+        category
+        created_at
       }
-    `;
+    }
+  `;
+
+  render() {
     return (
       <div>
-        <Query query={Ticket_Mutation}>
+        <Query query={this.Ticket_Mutation}>
           {(results) => {
             const { data } = results;
-            console.log(data);
+
             if (data) {
-              return <h1>Data fetch Successful</h1>;
+              const { allTickets } = data;
+              return allTickets.map((ticket) => (
+                <div key={ticket.id}>
+                  <p>{ticket.title}</p>
+                  <p>{ticket.description}</p>
+                  <p>{`${new Date(Number(ticket.created_at))}`}</p>
+                </div>
+              ));
             } else {
               return <h1>Data Fetch Failure </h1>;
             }
