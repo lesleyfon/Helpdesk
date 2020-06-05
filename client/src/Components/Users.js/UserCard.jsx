@@ -16,7 +16,9 @@ function UserCard({ user }) {
         <p className="user-details-name">
           {user.first_name} {user.last_name}
         </p>
-        <p className="online">Online: Yes</p>
+        <p className="online">
+          Online: <span id="online-status">Yes</span>
+        </p>
 
         <p className="user-details-username ">Username: {user.email}</p>
         <p className="user-details-username ">
