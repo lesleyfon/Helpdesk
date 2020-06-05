@@ -5,6 +5,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 //Styles
 import "./Ticket.css";
+import TicketCard from "./TicketCard";
 export default class TicketList extends Component {
   //Fetch Query
   Ticket_Mutation = gql`
@@ -33,24 +34,7 @@ export default class TicketList extends Component {
             if (data) {
               const { allTickets } = data;
 
-              return allTickets.map((ticket) => {
-                const date = new Date(Number(ticket.created_at));
-
-                return (
-                  <div key={ticket.id} className="ticket-details">
-                    <p className="ticket-title"> Question: {ticket.title}</p>
-                    <p className="ticket-description">{ticket.description}</p>
-                    <div id="small">
-                      <p id="category">{ticket.category}</p>
-                      <p>
-                        {" "}
-                        asked: {`${date.toLocaleDateString()}`} by{" "}
-                        <span> {ticket.created_by.first_name}</span>
-                      </p>
-                    </div>
-                  </div>
-                );
-              });
+              return allTickets.map((ticket) => <TicketCard ticket={ticket} />);
             } else {
               return <h1>Data Fetch Failure </h1>;
             }
