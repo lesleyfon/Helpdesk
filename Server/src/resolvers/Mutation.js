@@ -62,14 +62,27 @@ class Mutations {
 
   // Creating a new ticket
   async addTicket(root, args, context) {
-    const { userId } = await getUserDetails(context);
+    try {
+      const { title, description, category } = args;
+      const { userId } = await getUserDetails(context);
 
-    const ticket = await ticket_model.createTicket({
-      ...args,
-      user_id: userId,
-    });
+      if (!title || !description || !category) {
+        throw new Error(
+          "Please Make sure you are filling all the fields to add a new ticket"
+        );
+      }
 
-    return ticket;
+      const ticket = await ticket_model.createTicket({
+        title,
+        description,
+        category,
+        user_id: userId,
+      });
+
+      return ticket;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async solveATicket(root, args, context) {

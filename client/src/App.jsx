@@ -53,7 +53,12 @@ class App extends Component {
             path="/home"
             component={(props) => <Home {...props} />}
           />
-          <div className={this.state.display_modal ? "display_modal" : ""}>
+          <div
+            className={this.state.display_modal ? "display_modal" : ""}
+            style={{
+              display: `${this.state.display_modal ? "flex" : "none"}`,
+            }}
+          >
             <AddTicket />
           </div>
         </AppContextProvider>
