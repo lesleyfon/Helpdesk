@@ -10,6 +10,7 @@ class Query {
   }
   async allUsers(root, args, context) {
     await AuthUser(context);
+
     return await user_model.fetchAllUser();
   }
 

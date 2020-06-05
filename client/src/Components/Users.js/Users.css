@@ -18,7 +18,7 @@
 .profile-image img {
   width: 100px;
   height: 100px;
-  margin-top: 25%;
+  margin-top: 15%;
   box-sizing: content-box;
 }
 .user-details {
@@ -27,4 +27,23 @@
   min-width: 70%;
 }
 .user-details-name {
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 400;
+  padding: 5px 0px;
+  margin: 0px;
+}
+
+.online {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.7rem;
+  margin: 0px;
+}
+
+.user-details-username {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 400;
+  padding: 3px;
+  margin: 0px;
 }
