@@ -4,14 +4,11 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
-//Utils
-import { formatNumber } from "../../Utils/ConvertPhone";
-
 //styles
 import "./Users.css";
 
 // Avatar
-import Avatar from "./../../Assets/avatar.png";
+import UserCard from "./UserCard";
 export default class Users extends Component {
   state = {
     users: [],
@@ -37,34 +34,12 @@ export default class Users extends Component {
             const { data } = result;
             if (data) {
               const { allUsers } = data;
-              console.log(allUsers);
-              return allUsers.map((user) => (
-                <div key={user.id} className="user-card">
-                  <div className="profile-image">
-                    <img src={Avatar} alt="Avatar place holder" />
-                  </div>
-                  <div className="user-details">
-                    <p className="user-details-name">
-                      {user.first_name} {user.last_name}
-                    </p>
-                    <p className="online">Online: Yes</p>
 
-                    <p className="user-details-username ">
-                      Username: {user.email}
-                    </p>
-                    <p className="user-details-username ">
-                      Phone Number: {formatNumber(user.phone_number)}
-                    </p>
-                  </div>
-                </div>
+              return allUsers.map((user) => (
+                <UserCard user={user} key={user.id} />
               ));
             }
-            // if (data.data.allUsers) {
-            //   return <p>AllUser</p>;
-            // } else {
-            //   return <p>console.error;</p>;
-            // }
-            return <p>Hello</p>;
+            return <p>Fetching Data</p>;
           }}
         </Query>
       </div>
