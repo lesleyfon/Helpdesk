@@ -70,7 +70,10 @@ export default class AddTicket extends Component {
           created_by: localStorage.getItem(AUTH_TOKEN),
         }}
         onCompleted={(data) => {
-          console.log(data);
+          const { addTicket } = data;
+          if (addTicket.title) {
+            updateModal(false);
+          }
         }}
         onError={(err) => {
           this.setState({
@@ -87,7 +90,6 @@ export default class AddTicket extends Component {
               <div
                 id="close"
                 onClick={() => {
-                  console.log(updateModal);
                   updateModal(false);
                 }}
               >
