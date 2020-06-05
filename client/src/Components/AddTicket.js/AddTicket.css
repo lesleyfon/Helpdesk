@@ -1,0 +1,36 @@
+.form-fields-container {
+  width: 50%;
+  height: 400px;
+}
+
+#close {
+  float: right;
+  margin: 0px 0px 30px 100%;
+  padding: 10px;
+  background-color: #3ca4ff;
+  border-radius: 4px 0px 4px 4px;
+  color: #f5f5f5;
+  font-size: large;
+}
+
+.add-ticket-input-container {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.add-ticket-input-container input {
+  margin-bottom: 20px;
+  height: 35px;
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+.add-ticket-input-container textarea {
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+.add-ticket-input-container input,
+.add-ticket-input-container textarea {
+  outline: none;
+}
