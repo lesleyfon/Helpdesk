@@ -8,6 +8,9 @@ import TicketList from "../../Components/Ticket/TicketList";
 import "./Home.css";
 
 export default class Home extends Component {
+  state = {
+    display_modal: true,
+  };
   render() {
     return (
       <div className="ticket-container ">

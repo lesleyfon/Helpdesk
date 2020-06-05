@@ -1,0 +1,12 @@
+.form-fields-container {
+  width: 50%;
+  height: 50vh;
+}
+
+#close {
+  float: right;
+  margin: 0px 0px 0px 100%;
+  padding: 10px;
+  background-color: aqua;
+  cursor: pointer;
+}
