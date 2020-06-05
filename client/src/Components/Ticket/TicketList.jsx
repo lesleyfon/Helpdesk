@@ -3,10 +3,12 @@ import React, { Component } from "react";
 //GraphQL
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import AppContext from "./../../Context/AppContext";
 //Styles
 import "./Ticket.css";
 import TicketCard from "./TicketCard";
 export default class TicketList extends Component {
+  static contextType = AppContext;
   state = {
     search_ticket: "",
   };
@@ -29,6 +31,8 @@ export default class TicketList extends Component {
   `;
 
   render() {
+    //Setter for opening a modal
+    const { updateModal } = this.context;
     return (
       // Work on Search functionality
       //
@@ -45,7 +49,14 @@ export default class TicketList extends Component {
                   <div className="search-nav">
                     <div className="search-header">
                       <h3>Search Results</h3>
-                      <h5 className="question-btn">Ask A Question</h5>
+                      <h5
+                        className="question-btn"
+                        onClick={() => {
+                          updateModal(true);
+                        }}
+                      >
+                        Ask A Question
+                      </h5>
                     </div>
                     <div className="form-div">
                       <input
