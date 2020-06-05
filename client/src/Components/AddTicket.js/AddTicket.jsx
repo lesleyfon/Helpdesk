@@ -56,6 +56,8 @@ export default class AddTicket extends Component {
             placeholder="description"
             onChange={this.handleChange}
           />
+
+          <div className="add-ticket-btn"> Add A Ticket</div>
         </div>
       </div>
     );
