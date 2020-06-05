@@ -10,6 +10,7 @@ class Tickets {
 
   //Add a new ticket to the database
   async createTicket(ticket) {
+    console.log(ticket);
     await db(this.tableName).insert(ticket);
 
     const newTicket = await this.findTicket({ title: ticket.title });
