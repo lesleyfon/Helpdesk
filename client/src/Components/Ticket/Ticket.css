@@ -1,10 +1,52 @@
 p {
   margin: 0px;
 }
+.ticket-section {
+  width: 60%;
+}
+.search-nav .search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-btn {
+  margin: 0px;
+  padding: 10px;
+  background-color: #282c34;
+  color: #61dafb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 37px;
+}
+
+.form-div .search-input-fields {
+  width: 87%;
+  font-size: 1.2rem;
+  padding-left: 5px;
+}
+
+.form-div .search-input-fields:focus {
+  outline: none;
+}
+
+.form-div div {
+  margin: auto 0px;
+  padding: 10px;
+  background-color: #3ca4ff;
+  border-radius: 4px;
+  color: #f5f5f5;
+  cursor: pointer;
+}
 
 .ticket-details {
-  width: 60%;
-
   border-right: 1px solid #a9a9a9;
   border-left: 1px solid #a9a9a9;
   border-bottom: 1px solid #a9a9a9;
@@ -49,5 +91,5 @@ p {
 #small #category {
   background-color: #282c34;
   color: #61dafb;
-  border-radius: 2px;
+  border-radius: 4px;
 }

@@ -34,7 +34,29 @@ export default class TicketList extends Component {
             if (data) {
               const { allTickets } = data;
 
-              return allTickets.map((ticket) => <TicketCard ticket={ticket} />);
+              return (
+                <div className="ticket-section">
+                  <div className="search-nav">
+                    <div className="search-header">
+                      <h3>Search Results</h3>
+                      <h5 className="question-btn">Ask A Question</h5>
+                    </div>
+                    <div className="form-div">
+                      <input
+                        className="search-input-fields"
+                        type="text"
+                        name="search_ticket"
+                        placeholder="Search a Ticket"
+                      />
+                      <div>Search</div>
+                    </div>
+                  </div>
+
+                  {allTickets.map((ticket) => (
+                    <TicketCard ticket={ticket} />
+                  ))}
+                </div>
+              );
             } else {
               return <h1>Data Fetch Failure </h1>;
             }
