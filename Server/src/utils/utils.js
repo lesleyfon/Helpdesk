@@ -11,7 +11,7 @@ exports.getUserDetails = async function (context) {
 
   if (!Authorization) throw Error("You are not Authorized");
 
-  const token = Authorization.replace("Bearer", "");
+  const token = Authorization.replace("Bearer ", "");
 
   const { userId, email } = verifyToken(token);
 

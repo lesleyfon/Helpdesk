@@ -31,6 +31,7 @@ export default class Users extends Component {
     `;
     return (
       <div className="user-list-container">
+        <div className="user-details-header">Online Users</div>
         <Query query={USER_QUERY}>
           {(result) => {
             const { data } = result;
@@ -46,9 +47,14 @@ export default class Users extends Component {
                     <p className="user-details-name">
                       {user.first_name} {user.last_name}
                     </p>
-                    <p>Online: Yes</p>
-                    <p>Username: {user.email}</p>
-                    <p>phone_number: {formatNumber(user.phone_number)}</p>
+                    <p className="online">Online: Yes</p>
+
+                    <p className="user-details-username ">
+                      Username: {user.email}
+                    </p>
+                    <p className="user-details-username ">
+                      Phone Number: {formatNumber(user.phone_number)}
+                    </p>
                   </div>
                 </div>
               ));
