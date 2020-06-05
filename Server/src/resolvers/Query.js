@@ -10,14 +10,22 @@ class Query {
   }
   async allUsers(root, args, context) {
     await AuthUser(context);
-
     return await user_model.fetchAllUser();
   }
 
   async allTickets(root, args, context) {
     await AuthUser(context);
+    //Fetch all tickets
+    const tickets = await ticket_model.fetchAllTickets();
 
-    return await ticket_model.fetchAllTickets();
+    //Return tickets
+    return tickets.map(async (ticket) => {
+      return {
+        ...ticket,
+        // Fetch user based on the person that created a ticket
+        created_by: await user_model.findUser({ id: ticket.user_id }),
+      };
+    });
   }
 
   async fetchTicket(root, args, context) {
