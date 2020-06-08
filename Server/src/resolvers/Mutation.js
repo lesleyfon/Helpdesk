@@ -100,7 +100,10 @@ class Mutations {
 
   async deleteTicket(_, args, context) {
     await getUserDetails(context);
-
+    console.log(args);
+    if (!args.id) {
+      throw Error(`Please provide Id to be able to delete a ticket `);
+    }
     const deletedTicket = await ticket_model.deleteTicket(args);
 
     if (!deletedTicket)
