@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 //GraphQL
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import AppContext from "./../../Context/AppContext";
+import { Ticket_Mutation } from "./../../GraphQL/Queries";
+
 //Styles
 import "./Ticket.css";
 import TicketCard from "./TicketCard";
@@ -13,31 +14,13 @@ export default class TicketList extends Component {
     search_ticket: "",
   };
 
-  //Fetch Query
-  Ticket_Mutation = gql`
-    query {
-      allTickets {
-        id
-        title
-        description
-        category
-        created_at
-        created_by {
-          first_name
-          last_name
-        }
-      }
-    }
-  `;
-
   render() {
     //Setter for opening a modal
     const { updateModal } = this.context;
     return (
       // Work on Search functionality
-      //
       <>
-        <Query query={this.Ticket_Mutation}>
+        <Query query={Ticket_Mutation}>
           {(results) => {
             const { data } = results;
 

@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import AppContext from "./../../Context/AppContext";
+import AppContext from "../../Context/AppContext";
 
 // GraphQL
-import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
-
+import { ADD_TICKET_MUTATION } from "./../../GraphQL/Queries";
 //Styles
 import "./AddTicket.css";
 import { AUTH_TOKEN } from "../../constants";
 
-export default class AddTicket extends Component {
+export default class AddTicketModal extends Component {
   static contextType = AppContext;
   state = {
     title: "",
@@ -32,23 +31,7 @@ export default class AddTicket extends Component {
   };
 
   //graphql Mutation
-  ADD_TICKET_MUTATION = gql`
-    mutation Add_mutation(
-      $title: String!
-      $description: String!
-      $category: String
-      $created_by: String
-    ) {
-      addTicket(
-        title: $title
-        description: $description
-        category: $category
-        created_by: $created_by
-      ) {
-        title
-      }
-    }
-  `;
+
   render() {
     // Destructure updateNodal from the context
     const { updateModal } = this.context;
@@ -62,7 +45,7 @@ export default class AddTicket extends Component {
 
     return (
       <Mutation
-        mutation={this.ADD_TICKET_MUTATION}
+        mutation={ADD_TICKET_MUTATION}
         variables={{
           title,
           description,

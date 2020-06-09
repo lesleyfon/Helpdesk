@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { MdDelete } from "react-icons/md";
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
-import { useHistory } from "react-router-dom";
+import { DELETE_MUTATION } from "./../../GraphQL/Queries";
 function TicketCard({ ticket }) {
   //Format the ticket Date to a readable String
   const date = new Date(Number(ticket.created_at));
@@ -10,32 +9,16 @@ function TicketCard({ ticket }) {
   //Destructure the ticket id from the ticket props object
   const { id } = ticket;
 
-  const history = useHistory();
-  const DELETE_MUTATION = gql`
-    mutation Delete_mutation($id: ID!) {
-      deleteTicket(id: $id) {
-        id
-        info
-      }
-    }
-  `;
+  // GraphQL mutation for deleting a ticket
 
   return (
     <div>
       <div className="ticket-details">
         <div className="title-info">
           <p className="ticket-title"> Question: {ticket.title}</p>
-          <Mutation
-            mutation={DELETE_MUTATION}
-            variables={{ id: id }}
-            onCompleted={(data) => {
-              if (data.deleteTicket.id) {
-                history.push("/home");
-                console.log(data.deleteTicket);
-              }
-            }}
-          >
+          <Mutation mutation={DELETE_MUTATION} variables={{ id: id }}>
             {(mutation) => {
+              console.log(mutation);
               return <MdDelete onClick={mutation} />;
             }}
           </Mutation>
