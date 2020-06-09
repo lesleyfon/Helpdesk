@@ -16,10 +16,16 @@ function TicketCard({ ticket }) {
       <div className="ticket-details">
         <div className="title-info">
           <p className="ticket-title"> Question: {ticket.title}</p>
-          <Mutation mutation={DELETE_MUTATION} variables={{ id: id }}>
-            {(mutation) => {
-              console.log(mutation);
-              return <MdDelete onClick={mutation} />;
+          <Mutation mutation={DELETE_MUTATION}>
+            {(deleteMutation) => {
+              return (
+                <MdDelete
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteMutation({ variables: { id: id } });
+                  }}
+                />
+              );
             }}
           </Mutation>
         </div>
