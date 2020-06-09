@@ -12,11 +12,11 @@ import { AppContextProvider } from "./Context/AppContext";
 import "./App.css";
 import { AUTH_TOKEN } from "./constants";
 import Home from "./Page/Home/Home";
-import AddTicket from "./Components/AddTicket.js/AddTicket";
+import AddTicketModal from "./Components/AddTicketModal/AddTicketModal.jsx";
 
 class App extends Component {
   state = {
-    display_modal: true,
+    display_modal: false,
   };
   componentDidMount() {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -59,7 +59,7 @@ class App extends Component {
               display: `${this.state.display_modal ? "flex" : "none"}`,
             }}
           >
-            <AddTicket />
+            <AddTicketModal />
           </div>
         </AppContextProvider>
       </div>

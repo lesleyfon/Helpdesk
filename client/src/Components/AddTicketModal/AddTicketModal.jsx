@@ -1,15 +1,35 @@
 import React, { Component } from "react";
-import AppContext from "./../../Context/AppContext";
+import AppContext from "../../Context/AppContext";
 
 // GraphQL
-import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import {
+  ADD_TICKET_MUTATION,
+  GET_TICKETS_QUERY,
+} from "./../../GraphQL/Queries";
 
 //Styles
 import "./AddTicket.css";
 import { AUTH_TOKEN } from "../../constants";
 
-export default class AddTicket extends Component {
+const updateCache = (cache, { data: { addTicket } }) => {
+  //Read Query from the Cache
+  // Pass in the Query we need to fetch after a successfull mutation
+  // This returns all the data from the cache
+  const { allTickets } = cache.readQuery({ query: GET_TICKETS_QUERY });
+  console.log(allTickets);
+
+  //We want to write a cache and pass in the newly created ticket
+  // First we have to pass in the the query for getting all the tickets
+  // then we concat the addTicket to the allTickets array so it populates the all tickets array and renders on the page
+  cache.writeQuery({
+    query: GET_TICKETS_QUERY,
+    data: {
+      allTickets: allTickets.concat(addTicket),
+    },
+  });
+};
+export default class AddTicketModal extends Component {
   static contextType = AppContext;
   state = {
     title: "",
@@ -32,23 +52,7 @@ export default class AddTicket extends Component {
   };
 
   //graphql Mutation
-  ADD_TICKET_MUTATION = gql`
-    mutation Add_mutation(
-      $title: String!
-      $description: String!
-      $category: String
-      $created_by: String
-    ) {
-      addTicket(
-        title: $title
-        description: $description
-        category: $category
-        created_by: $created_by
-      ) {
-        title
-      }
-    }
-  `;
+
   render() {
     // Destructure updateNodal from the context
     const { updateModal } = this.context;
@@ -62,13 +66,7 @@ export default class AddTicket extends Component {
 
     return (
       <Mutation
-        mutation={this.ADD_TICKET_MUTATION}
-        variables={{
-          title,
-          description,
-          category,
-          created_by: localStorage.getItem(AUTH_TOKEN),
-        }}
+        mutation={ADD_TICKET_MUTATION}
         onCompleted={(data) => {
           const { addTicket } = data;
           if (addTicket.title) {
@@ -83,8 +81,9 @@ export default class AddTicket extends Component {
             },
           });
         }}
+        update={updateCache}
       >
-        {(mutation) => {
+        {(addMutation) => {
           return (
             <div className="form-fields-container registration-wrapper">
               <div
@@ -120,7 +119,25 @@ export default class AddTicket extends Component {
                   onChange={this.handleChange}
                 />
 
-                <div className="add-ticket-btn" onClick={mutation}>
+                <div
+                  className="add-ticket-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addMutation({
+                      variables: {
+                        title,
+                        description,
+                        category,
+                        created_by: localStorage.getItem(AUTH_TOKEN),
+                      },
+                    });
+                    this.setState({
+                      title: "",
+                      description: "",
+                      category: "",
+                    });
+                  }}
+                >
                   {" "}
                   Add A Ticket
                 </div>
