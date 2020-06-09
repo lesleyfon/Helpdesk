@@ -3,7 +3,7 @@ import React, { Component } from "react";
 //GraphQL
 import { Query } from "react-apollo";
 import AppContext from "./../../Context/AppContext";
-import { Ticket_Mutation } from "./../../GraphQL/Queries";
+import { GET_TICKETS_QUERY } from "./../../GraphQL/Queries";
 
 //Styles
 import "./Ticket.css";
@@ -20,7 +20,7 @@ export default class TicketList extends Component {
     return (
       // Work on Search functionality
       <>
-        <Query query={Ticket_Mutation}>
+        <Query query={GET_TICKETS_QUERY}>
           {(results) => {
             const { data } = results;
 

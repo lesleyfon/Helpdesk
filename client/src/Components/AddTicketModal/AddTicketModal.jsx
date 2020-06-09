@@ -3,11 +3,32 @@ import AppContext from "../../Context/AppContext";
 
 // GraphQL
 import { Mutation } from "react-apollo";
-import { ADD_TICKET_MUTATION } from "./../../GraphQL/Queries";
+import {
+  ADD_TICKET_MUTATION,
+  GET_TICKETS_QUERY,
+} from "./../../GraphQL/Queries";
+
 //Styles
 import "./AddTicket.css";
 import { AUTH_TOKEN } from "../../constants";
 
+const updateCache = (cache, { data: { addTicket } }) => {
+  //Read Query from the Cache
+  // Pass in the Query we need to fetch after a successfull mutation
+  // This returns all the data from the cache
+  const { allTickets } = cache.readQuery({ query: GET_TICKETS_QUERY });
+  console.log(allTickets);
+
+  //We want to write a cache and pass in the newly created ticket
+  // First we have to pass in the the query for getting all the tickets
+  // then we concat the addTicket to the allTickets array so it populates the all tickets array and renders on the page
+  cache.writeQuery({
+    query: GET_TICKETS_QUERY,
+    data: {
+      allTickets: allTickets.concat(addTicket),
+    },
+  });
+};
 export default class AddTicketModal extends Component {
   static contextType = AppContext;
   state = {
@@ -46,12 +67,6 @@ export default class AddTicketModal extends Component {
     return (
       <Mutation
         mutation={ADD_TICKET_MUTATION}
-        variables={{
-          title,
-          description,
-          category,
-          created_by: localStorage.getItem(AUTH_TOKEN),
-        }}
         onCompleted={(data) => {
           const { addTicket } = data;
           if (addTicket.title) {
@@ -66,8 +81,9 @@ export default class AddTicketModal extends Component {
             },
           });
         }}
+        update={updateCache}
       >
-        {(mutation) => {
+        {(addMutation) => {
           return (
             <div className="form-fields-container registration-wrapper">
               <div
@@ -103,7 +119,25 @@ export default class AddTicketModal extends Component {
                   onChange={this.handleChange}
                 />
 
-                <div className="add-ticket-btn" onClick={mutation}>
+                <div
+                  className="add-ticket-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addMutation({
+                      variables: {
+                        title,
+                        description,
+                        category,
+                        created_by: localStorage.getItem(AUTH_TOKEN),
+                      },
+                    });
+                    this.setState({
+                      title: "",
+                      description: "",
+                      category: "",
+                    });
+                  }}
+                >
                   {" "}
                   Add A Ticket
                 </div>

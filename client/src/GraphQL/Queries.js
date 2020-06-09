@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 //Fetch Query
-export const Ticket_Mutation = gql`
+export const GET_TICKETS_QUERY = gql`
   query {
     allTickets {
       id
@@ -30,7 +30,15 @@ export const ADD_TICKET_MUTATION = gql`
       category: $category
       created_by: $created_by
     ) {
+      id
       title
+      description
+      category
+      created_at
+      created_by {
+        first_name
+        last_name
+      }
     }
   }
 `;
