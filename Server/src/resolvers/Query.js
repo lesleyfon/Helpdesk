@@ -1,6 +1,6 @@
 const { user_model, ticket_model } = require("./../models/index");
 const { getUserDetails: AuthUser } = require("./../utils/utils");
-
+const db = require("./../data/db.config");
 class Query {
   /**
    * Test Query:
@@ -20,10 +20,15 @@ class Query {
 
     //Return tickets
     return tickets.map(async (ticket) => {
+      const status = await db("ticket_status").where({ ticket_id: ticket.id });
+      console.log(status);
       return {
         ...ticket,
         // Fetch user based on the person that created a ticket
         created_by: await user_model.findUser({ id: ticket.user_id }),
+        ticket_status: {
+          status: "pending",
+        },
       };
     });
   }
