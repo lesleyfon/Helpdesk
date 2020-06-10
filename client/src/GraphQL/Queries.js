@@ -13,6 +13,9 @@ export const GET_TICKETS_QUERY = gql`
         first_name
         last_name
       }
+      ticket_status {
+        state
+      }
     }
   }
 `;
@@ -38,6 +41,9 @@ export const ADD_TICKET_MUTATION = gql`
       created_by {
         first_name
         last_name
+      }
+      ticket_status {
+        state
       }
     }
   }

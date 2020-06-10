@@ -27,7 +27,7 @@ exports.up = async function (knex) {
         .onDelete("CASCADE");
     });
 
-  await knex.schema.createTable("ticket-status", (table) => {
+  await knex.schema.createTable("ticket_status", (table) => {
     table.increments("id");
     table.string("state").notNullable().defaultTo("pending");
     table
@@ -38,7 +38,7 @@ exports.up = async function (knex) {
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
   });
-  await knex.schema.createTable("resolved-tickets", (table) => {
+  await knex.schema.createTable("resolved_tickets", (table) => {
     table.increments("id");
     table.string("solution").notNullable();
     table
@@ -61,8 +61,8 @@ exports.up = async function (knex) {
 };
 
 exports.down = async function (knex) {
-  await knex.schema.dropTableIfExists("resolved-tickets");
-  await knex.schema.dropTableIfExists("ticket-status");
+  await knex.schema.dropTableIfExists("resolved_tickets");
+  await knex.schema.dropTableIfExists("ticket_status");
   await knex.schema.dropTableIfExists("ticket");
   await knex.schema.dropTableIfExists("user");
 };

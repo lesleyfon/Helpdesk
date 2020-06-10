@@ -19,6 +19,7 @@ export default class TicketList extends Component {
     const { updateModal } = this.context;
     return (
       // Work on Search functionality
+      // Only user that created a ticket can delete a ticket
       <>
         <Query query={GET_TICKETS_QUERY}>
           {(results) => {

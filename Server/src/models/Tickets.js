@@ -42,7 +42,7 @@ class Tickets {
 
   // Returns all tickets that have been resolved
   resolvedTickets() {
-    return db("resolved-tickets");
+    return db("resolved_tickets");
   }
 
   // Returns a specific status for a specific ticket using the ticket ids

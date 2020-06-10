@@ -1,5 +1,5 @@
 exports.seed = async function (knex) {
-  await knex("resolved-tickets").insert([
+  await knex("resolved_tickets").insert([
     {
       solution: "to test component you need to mock the redux store",
       ticket_id: "c0456bfc-0038-4b0c-b2c8-433c65b4dae2",
