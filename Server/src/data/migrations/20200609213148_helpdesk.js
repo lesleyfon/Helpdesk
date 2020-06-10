@@ -38,6 +38,26 @@ exports.up = async function (knex) {
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
   });
+  await knex.schema.createTable("resolved_tickets", (table) => {
+    table.increments("id");
+    table.string("solution").notNullable();
+    table
+      .uuid("ticket_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("ticket")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
+    table
+      .uuid("resolved_by")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("user")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+  });
 };
 
 exports.down = async function (knex) {
