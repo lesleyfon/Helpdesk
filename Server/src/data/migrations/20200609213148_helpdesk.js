@@ -61,6 +61,7 @@ exports.up = async function (knex) {
 };
 
 exports.down = async function (knex) {
+  await knex.schema.dropTableIfExists("resolved_tickets");
   await knex.schema.dropTableIfExists("ticket_status");
   await knex.schema.dropTableIfExists("ticket");
   await knex.schema.dropTableIfExists("user");
