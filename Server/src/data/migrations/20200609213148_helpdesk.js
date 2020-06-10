@@ -26,9 +26,22 @@ exports.up = async function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
     });
+
+  await knex.schema.createTable("ticket_status", (table) => {
+    table.increments("id");
+    table.string("state").notNullable().defaultTo("pending");
+    table
+      .uuid("ticket_id")
+      .notNullable()
+      .references("id")
+      .inTable("ticket")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+  });
 };
 
 exports.down = async function (knex) {
+  await knex.schema.dropTableIfExists("ticket_status");
   await knex.schema.dropTableIfExists("ticket");
   await knex.schema.dropTableIfExists("user");
 };
