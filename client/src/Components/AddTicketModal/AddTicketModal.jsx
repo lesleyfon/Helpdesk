@@ -69,10 +69,21 @@ export default class AddTicketModal extends Component {
         mutation={ADD_TICKET_MUTATION}
         onCompleted={(data) => {
           const { addTicket } = data;
+
           if (addTicket.title) {
             updateModal(false);
+            this.setState({
+              title: "",
+              description: "",
+              category: "",
+              error: {
+                status: false,
+                message: "",
+              },
+            });
           }
         }}
+        // Error Handling
         onError={(err) => {
           this.setState({
             error: {
@@ -131,14 +142,6 @@ export default class AddTicketModal extends Component {
                         created_by: localStorage.getItem(AUTH_TOKEN),
                       },
                     });
-
-                    this.setState({
-                      title: "",
-                      description: "",
-                      category: "",
-                    });
-
-                    updateModal(false);
                   }}
                 >
                   {" "}
