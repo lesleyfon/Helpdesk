@@ -96,7 +96,7 @@ export default class LogIn extends Component {
     const {
       login: { token },
     } = data;
-    console.log(data);
+
     localStorage.setItem(AUTH_TOKEN, token);
     this.props.history.push("/home");
   }

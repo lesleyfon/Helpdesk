@@ -70,8 +70,8 @@ class Tickets {
       })
       .returning("*");
 
-    console.log(ticketSolution);
     const ticket = this.findTicket({ id: ticketSolution.ticket_id });
+
     const resolved_by = db("user")
       .where({ id: ticketSolution.resolved_by })
       .first();
