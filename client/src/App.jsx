@@ -18,7 +18,10 @@ import SolveTicketModal from "./Components/SolveTicketModal/SolveTicketModal";
 class App extends Component {
   state = {
     display_modal: false,
-    display_solve_ticket_modal: false,
+    resolve_ticket: {
+      display_solve_ticket_modal: false,
+      ticket_id: null,
+    },
   };
   componentDidMount() {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -67,10 +70,17 @@ class App extends Component {
 
           <div
             className={`${
-              this.state.display_solve_ticket_modal
+              this.state.resolve_ticket.display_solve_ticket_modal
                 ? "display_solve_ticket_modal"
                 : ""
             }`}
+            style={{
+              display: `${
+                this.state.resolve_ticket.display_solve_ticket_modal
+                  ? "flex"
+                  : "none"
+              }`,
+            }}
           >
             <SolveTicketModal />
           </div>

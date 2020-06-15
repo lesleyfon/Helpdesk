@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 import { Mutation } from "react-apollo";
 import { DELETE_MUTATION, GET_TICKETS_QUERY } from "./../../GraphQL/Queries";
+import AppContext from "../../Context/AppContext";
 
 //The first Params is the cache object which we can use to read and write data
 // The second Params id the data that we get from what ever function we just executed
@@ -27,6 +28,8 @@ function TicketCard({ ticket }) {
   const { id } = ticket;
 
   // GraphQL mutation for deleting a ticket
+
+  const { updateModal } = useContext(AppContext);
 
   return (
     <div>
@@ -60,10 +63,20 @@ function TicketCard({ ticket }) {
           Status:{" "}
           <span
             className="ticket_status"
+            onClick={() => {
+              const resolve_ticket = {
+                display_solve_ticket_modal: true,
+                ticket_id: id,
+              };
+
+              updateModal({ resolve_ticket });
+            }}
             // onMouseOver={() => setSolveTicketInfo(!solveTicketInfo)}
             // onMouseOut={() => setSolveTicketInfo(!solveTicketInfo)}
           >
-            {ticket.ticket_status.state}
+            {ticket.ticket_status.state === "pending"
+              ? "Unsolved"
+              : "Solved Ticket"}
           </span>
         </small>
         {/* {solveTicketInfo ? (

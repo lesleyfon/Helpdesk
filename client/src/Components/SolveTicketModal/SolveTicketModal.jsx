@@ -5,7 +5,7 @@ export default class SolveTicketModal extends Component {
   static contextType = AppContext;
 
   render() {
-    const {} = this.context;
+    const { updateModal } = this.context;
     return <div> Solve this ticket</div>;
   }
 }
