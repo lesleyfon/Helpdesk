@@ -86,13 +86,14 @@ class Mutations {
   }
 
   async solveATicket(root, args, context) {
-    await getUserDetails(context);
-    const { solution, ticket_id, solved_by } = args;
+    const { userId } = await getUserDetails(context);
+
+    const { solution, ticket_id } = args;
 
     const resolvedTicket = await ticket_model.solveTicket({
       solution,
       ticket_id,
-      solved_by,
+      solved_by: userId,
     });
 
     return resolvedTicket;

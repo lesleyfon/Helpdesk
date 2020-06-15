@@ -20,6 +20,25 @@ export const GET_TICKETS_QUERY = gql`
   }
 `;
 
+export const RESOLVE_TICKET = gql`
+  mutation resolveTicketMutation(
+    $solution: String!
+    $ticket_id: ID!
+    $solved_by: ID!
+  ) {
+    solveATicket(
+      solution: $solution
+      ticket_id: $ticket_id
+      solved_by: $solved_by
+    ) {
+      id
+      solution
+      # ticket
+      # resolved_by
+    }
+  }
+`;
+
 export const ADD_TICKET_MUTATION = gql`
   mutation Add_mutation(
     $title: String!

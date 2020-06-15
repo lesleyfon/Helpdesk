@@ -1,52 +1,71 @@
 import React, { Component } from "react";
 import AppContext from "../../Context/AppContext";
-
+import { Mutation } from "react-apollo";
+import { RESOLVE_TICKET } from "./../../GraphQL/Queries";
+import { AUTH_TOKEN } from "../../constants";
 export default class SolveTicketModal extends Component {
   static contextType = AppContext;
   state = {
     solution: "",
   };
   render() {
-    const { updateModal } = this.context;
-    return (
-      <div
-        className="form-fields-container registration-wrapper"
-        style={{
-          height: "350px",
-        }}
-      >
-        <div
-          id="close"
-          onClick={() => {
-            const resolve_ticket = {
-              display_solve_ticket_modal: false,
-            };
-            updateModal({ resolve_ticket });
-          }}
-        >
-          Close
-        </div>
-        <div className="add-ticket-input-container">
-          <textarea
-            name="Solution"
-            type="textarea"
-            rows="7"
-            value={this.state.solution}
-            placeholder="Solution"
-            onChange={this.handleChange}
-          />
+    const { updateModal, resolve_ticket } = this.context;
 
-          <div
-            className="add-ticket-btn"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            {" "}
-            Resolve This Ticket
-          </div>
-        </div>
-      </div>
+    return (
+      <Mutation mutation={RESOLVE_TICKET}>
+        {(mutation) => {
+          return (
+            <div
+              className="form-fields-container registration-wrapper"
+              style={{
+                height: "350px",
+              }}
+            >
+              <div
+                id="close"
+                onClick={() => {
+                  const resolve_ticket = {
+                    display_solve_ticket_modal: false,
+                  };
+                  updateModal({ resolve_ticket });
+                }}
+              >
+                Close
+              </div>
+              <div className="add-ticket-input-container">
+                <textarea
+                  name="Solution"
+                  type="textarea"
+                  rows="7"
+                  value={this.state.solution}
+                  placeholder="Solution"
+                  onChange={(event) =>
+                    this.setState({ solution: event.target.value })
+                  }
+                />
+
+                <div
+                  className="add-ticket-btn"
+                  onClick={() => {
+                    if (resolve_ticket.ticket_id && this.state.solution) {
+                      mutation({
+                        variables: {
+                          solution: this.state.solution,
+                          ticket_id: resolve_ticket.ticket_id,
+                          solved_by: localStorage.getItem(AUTH_TOKEN),
+                        },
+                      });
+                    }
+                  }}
+                >
+                  {" "}
+                  Resolve This Ticket
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Mutation>
     );
   }
 }

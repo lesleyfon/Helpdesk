@@ -57,20 +57,20 @@ class Tickets {
 
   // Method for solving a ticket, It Updates a ticket status from pending(default) to solved, which means a ticket has been solved
   async solveTicket({ solution, ticket_id, solved_by }) {
-    await db("ticket_status")
+    const r = await db("ticket_status")
       .where({ ticket_id })
       .update({ state: "solved" })
       .returning("*");
 
-    const [ticketSolution] = await db("resolved-tickets")
-      .where({ ticket_id })
-      .update({
+    const [ticketSolution] = await db("resolved_tickets")
+      .insert({
         solution,
         resolved_by: solved_by,
         ticket_id,
       })
       .returning("*");
 
+    console.log(ticketSolution);
     const ticket = this.findTicket({ id: ticketSolution.ticket_id });
     const resolved_by = db("user")
       .where({ id: ticketSolution.resolved_by })
