@@ -18,7 +18,7 @@ import SolveTicketModal from "./Components/SolveTicketModal/SolveTicketModal";
 class App extends Component {
   state = {
     display_modal: false,
-    display_solve_ticket_modal: true,
+    display_solve_ticket_modal: false,
   };
   componentDidMount() {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -28,9 +28,10 @@ class App extends Component {
     }
   }
 
-  updateModal = (bool) => {
-    this.setState((prevState) => ({ ...this.state, display_modal: bool }));
+  updateModal = (updateModalState) => {
+    this.setState((prevState) => ({ ...this.state, ...updateModalState }));
   };
+
   render() {
     const { updateModal } = this;
     return (

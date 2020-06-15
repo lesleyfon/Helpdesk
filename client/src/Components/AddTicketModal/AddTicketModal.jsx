@@ -71,7 +71,7 @@ export default class AddTicketModal extends Component {
           const { addTicket } = data;
 
           if (addTicket.title) {
-            updateModal(false);
+            updateModal({ display_modal: false });
             this.setState({
               title: "",
               description: "",
@@ -100,7 +100,7 @@ export default class AddTicketModal extends Component {
               <div
                 id="close"
                 onClick={() => {
-                  updateModal(false);
+                  updateModal({ display_modal: false });
                 }}
               >
                 Close
