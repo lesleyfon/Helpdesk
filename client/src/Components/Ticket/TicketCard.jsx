@@ -16,6 +16,7 @@ const updateCache = (cache, { data: { deleteTicket } }) => {
     },
   });
 };
+
 function TicketCard({ ticket }) {
   //Format the ticket Date to a readable String
   const date = new Date(Number(ticket.created_at));
@@ -53,6 +54,17 @@ function TicketCard({ ticket }) {
             <span> {ticket.created_by.first_name}</span>
           </p>
         </div>
+        <small>
+          Status:{" "}
+          <span
+            className="ticket_status"
+            onMouseOver={() => {
+              console.log("Solve This Ticket");
+            }}
+          >
+            {ticket.ticket_status.state}
+          </span>
+        </small>
       </div>
     </div>
   );

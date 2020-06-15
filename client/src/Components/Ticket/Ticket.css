@@ -105,3 +105,12 @@ p {
   color: #61dafb;
   border-radius: 4px;
 }
+
+div small {
+  padding: 10px 5px 10px 0px;
+}
+.ticket_status {
+  color: #3ca4ff;
+  padding: 5px;
+  cursor: pointer;
+}
