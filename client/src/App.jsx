@@ -13,10 +13,12 @@ import "./App.css";
 import { AUTH_TOKEN } from "./constants";
 import Home from "./Page/Home/Home";
 import AddTicketModal from "./Components/AddTicketModal/AddTicketModal.jsx";
+import SolveTicketModal from "./Components/SolveTicketModal/SolveTicketModal";
 
 class App extends Component {
   state = {
     display_modal: false,
+    display_solve_ticket_modal: true,
   };
   componentDidMount() {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -60,6 +62,16 @@ class App extends Component {
             }}
           >
             <AddTicketModal />
+          </div>
+
+          <div
+            className={`${
+              this.state.display_solve_ticket_modal
+                ? "display_solve_ticket_modal"
+                : ""
+            }`}
+          >
+            <SolveTicketModal />
           </div>
         </AppContextProvider>
       </div>
