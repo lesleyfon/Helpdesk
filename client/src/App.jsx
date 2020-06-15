@@ -13,10 +13,15 @@ import "./App.css";
 import { AUTH_TOKEN } from "./constants";
 import Home from "./Page/Home/Home";
 import AddTicketModal from "./Components/AddTicketModal/AddTicketModal.jsx";
+import SolveTicketModal from "./Components/SolveTicketModal/SolveTicketModal";
 
 class App extends Component {
   state = {
     display_modal: false,
+    resolve_ticket: {
+      display_solve_ticket_modal: true,
+      ticket_id: null,
+    },
   };
   componentDidMount() {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -26,9 +31,10 @@ class App extends Component {
     }
   }
 
-  updateModal = (bool) => {
-    this.setState((prevState) => ({ ...this.state, display_modal: bool }));
+  updateModal = (updateModalState) => {
+    this.setState((prevState) => ({ ...this.state, ...updateModalState }));
   };
+
   render() {
     const { updateModal } = this;
     return (
@@ -60,6 +66,23 @@ class App extends Component {
             }}
           >
             <AddTicketModal />
+          </div>
+
+          <div
+            className={`${
+              this.state.resolve_ticket.display_solve_ticket_modal
+                ? "display_solve_ticket_modal"
+                : ""
+            }`}
+            style={{
+              display: `${
+                this.state.resolve_ticket.display_solve_ticket_modal
+                  ? "flex"
+                  : "none"
+              }`,
+            }}
+          >
+            <SolveTicketModal />
           </div>
         </AppContextProvider>
       </div>

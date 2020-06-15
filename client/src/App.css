@@ -25,7 +25,8 @@
   color: white;
 }
 
-.display_modal {
+.display_modal,
+.display_solve_ticket_modal {
   width: 100%;
   min-height: 100%;
   top: 0px;

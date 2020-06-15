@@ -36,7 +36,7 @@ export default class TicketList extends Component {
                       <h5
                         className="question-btn"
                         onClick={() => {
-                          updateModal(true);
+                          updateModal({ display_modal: true });
                         }}
                       >
                         Ask A Question

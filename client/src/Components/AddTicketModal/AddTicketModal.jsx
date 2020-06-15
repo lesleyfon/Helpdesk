@@ -14,7 +14,7 @@ import { AUTH_TOKEN } from "../../constants";
 
 const updateCache = (cache, { data: { addTicket } }) => {
   //Read Query from the Cache
-  // Pass in the Query we need to fetch after a successfull mutation
+  // Pass in the Query we need to fetch after a successful mutation
   // This returns all the data from the cache
   const { allTickets } = cache.readQuery({ query: GET_TICKETS_QUERY });
   console.log(allTickets);
@@ -69,10 +69,21 @@ export default class AddTicketModal extends Component {
         mutation={ADD_TICKET_MUTATION}
         onCompleted={(data) => {
           const { addTicket } = data;
+
           if (addTicket.title) {
-            updateModal(false);
+            updateModal({ display_modal: false });
+            this.setState({
+              title: "",
+              description: "",
+              category: "",
+              error: {
+                status: false,
+                message: "",
+              },
+            });
           }
         }}
+        // Error Handling
         onError={(err) => {
           this.setState({
             error: {
@@ -89,7 +100,7 @@ export default class AddTicketModal extends Component {
               <div
                 id="close"
                 onClick={() => {
-                  updateModal(false);
+                  updateModal({ display_modal: false });
                 }}
               >
                 Close
@@ -107,7 +118,7 @@ export default class AddTicketModal extends Component {
                   type="text"
                   name="category"
                   value={category}
-                  placeholder="category"
+                  placeholder="Category"
                   onChange={this.handleChange}
                 />
                 <textarea
@@ -115,7 +126,7 @@ export default class AddTicketModal extends Component {
                   type="textarea"
                   rows="5"
                   value={description}
-                  placeholder="description"
+                  placeholder="Description"
                   onChange={this.handleChange}
                 />
 
@@ -130,11 +141,6 @@ export default class AddTicketModal extends Component {
                         category,
                         created_by: localStorage.getItem(AUTH_TOKEN),
                       },
-                    });
-                    this.setState({
-                      title: "",
-                      description: "",
-                      category: "",
                     });
                   }}
                 >

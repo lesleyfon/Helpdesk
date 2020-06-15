@@ -76,7 +76,7 @@ class Mutations {
         title,
         description,
         category,
-        user_id: userId,
+        created_by: userId,
       });
 
       return ticket;
@@ -100,7 +100,6 @@ class Mutations {
 
   async deleteTicket(_, args, context) {
     await getUserDetails(context);
-    console.log(args);
     if (!args.id) {
       throw Error(`Please provide Id to be able to delete a ticket `);
     }
