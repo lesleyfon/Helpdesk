@@ -131,11 +131,14 @@ export default class AddTicketModal extends Component {
                         created_by: localStorage.getItem(AUTH_TOKEN),
                       },
                     });
+
                     this.setState({
                       title: "",
                       description: "",
                       category: "",
                     });
+
+                    updateModal(false);
                   }}
                 >
                   {" "}

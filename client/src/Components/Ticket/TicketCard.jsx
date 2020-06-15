@@ -18,6 +18,8 @@ const updateCache = (cache, { data: { deleteTicket } }) => {
 };
 
 function TicketCard({ ticket }) {
+  // const [solveTicketInfo, setSolveTicketInfo] = useState(true);
+
   //Format the ticket Date to a readable String
   const date = new Date(Number(ticket.created_at));
 
@@ -58,13 +60,15 @@ function TicketCard({ ticket }) {
           Status:{" "}
           <span
             className="ticket_status"
-            onMouseOver={() => {
-              console.log("Solve This Ticket");
-            }}
+            // onMouseOver={() => setSolveTicketInfo(!solveTicketInfo)}
+            // onMouseOut={() => setSolveTicketInfo(!solveTicketInfo)}
           >
             {ticket.ticket_status.state}
           </span>
         </small>
+        {/* {solveTicketInfo ? (
+          <div className="tooltip">Solve this ticket</div>
+        ) : null} */}
       </div>
     </div>
   );

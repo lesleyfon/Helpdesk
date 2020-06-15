@@ -15,8 +15,6 @@ class Query {
 
       return allUsers;
     } catch (error) {
-      console.log("Error here", error);
-
       throw new Error({
         message: "Server Error",
         error,
@@ -32,7 +30,6 @@ class Query {
     //Return tickets
     try {
       return tickets.map(async (ticket) => {
-        console.log(ticket);
         const status = await db("ticket_status")
           .where("ticket_id", ticket.id)
           .first();
@@ -46,8 +43,6 @@ class Query {
         };
       });
     } catch (error) {
-      console.log("Error here", error);
-
       throw new Error({
         message: "Server Error",
         error,

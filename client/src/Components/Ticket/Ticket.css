@@ -114,3 +114,15 @@ div small {
   padding: 5px;
   cursor: pointer;
 }
+
+/* .tooltip {
+  font-size: 0.7rem;
+  clear: both;
+  width: 100px;
+  color: #dbf3ff;
+  position: relative;
+  border-radius: 10px;
+  background: #282c34;
+  padding: 7px 0px;
+  text-align: center;
+} */
