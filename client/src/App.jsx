@@ -19,7 +19,7 @@ class App extends Component {
   state = {
     display_modal: false,
     resolve_ticket: {
-      display_solve_ticket_modal: false,
+      display_solve_ticket_modal: true,
       ticket_id: null,
     },
   };
