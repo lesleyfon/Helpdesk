@@ -1,8 +1,36 @@
 import React, { Component } from "react";
 import AppContext from "../../Context/AppContext";
 import { Mutation } from "react-apollo";
-import { RESOLVE_TICKET } from "./../../GraphQL/Queries";
+import { RESOLVE_TICKET, GET_TICKETS_QUERY } from "./../../GraphQL/Queries";
 import { AUTH_TOKEN } from "../../constants";
+
+const updateCache = (cache, { data: { solveATicket } }) => {
+	// console.log(solveATicket);
+	let { allTickets } = cache.readQuery({ query: GET_TICKETS_QUERY });
+
+	allTickets = allTickets.map((ticket) => {
+		if (ticket.id === solveATicket.ticket.id) {
+			console.log("Before", ticket);
+			ticket = {
+				...ticket,
+				ticket_status: {
+					...ticket.ticket_status,
+					state: "solved",
+				},
+			};
+			console.log("After", ticket);
+			return ticket;
+		}
+		return ticket;
+	});
+
+	cache.writeQuery({
+		query: GET_TICKETS_QUERY,
+		data: {
+			allTickets,
+		},
+	});
+};
 export default class SolveTicketModal extends Component {
 	static contextType = AppContext;
 	state = {
@@ -38,6 +66,7 @@ export default class SolveTicketModal extends Component {
 				onError={(err) => {
 					console.log(err);
 				}}
+				update={updateCache}
 			>
 				{(mutation) => {
 					return (
