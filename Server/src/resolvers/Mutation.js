@@ -36,24 +36,30 @@ class Mutations {
 	 * @param {*} context = The context argument is a plain JavaScript object that every resolver in the resolver chain can read from and write to - it thus basically is a means for resolvers to communicate.
 	 */
 	async login(_, args, context) {
-		if (!args.email || !args.password) throw new Error("Please provide and email and a password");
+		try {
+			if (!args.email || !args.password) {
+				throw new Error("Please provide and email and a password");
+			}
+			const dbUser = await user_model.findUser({
+				email: args.email,
+			});
 
-		const dbUser = await user_model.findUser({
-			email: args.email,
-		});
+			if (!dbUser) {
+				throw Error(`User with the email of ${args.email} doesn't exist`);
+			}
+			const { password, ...user } = dbUser;
 
-		if (!dbUser) throw Error(`User with the email of ${args.email} doesn't exist`);
+			const comparePassword = await verifyPassword(args.password, password);
 
-		const { password, ...user } = dbUser;
+			if (!comparePassword) throw Error(`Invalid password`);
 
-		const comparePassword = await verifyPassword(args.password, password);
-
-		if (!comparePassword) throw Error(`Invalid password`);
-
-		return {
-			token: signToken({ userId: user.id, email: user.email }),
-			user,
-		};
+			return {
+				token: signToken({ userId: user.id, email: user.email }),
+				user,
+			};
+		} catch (error) {
+			throw new Error(error);
+		}
 	}
 
 	// Creating a new ticket
@@ -63,7 +69,9 @@ class Mutations {
 			const { userId } = await getUserDetails(context);
 
 			if (!title || !description || !category) {
-				throw new Error("Please Make sure you are filling all the fields to add a new ticket");
+				throw new Error(
+					"Please Make sure you are filling all the fields to add a new ticket"
+				);
 			}
 
 			const ticket = await ticket_model.createTicket({
@@ -75,7 +83,6 @@ class Mutations {
 
 			return ticket;
 		} catch (error) {
-			console.log("Error here", error.message);
 			throw new Error(error);
 		}
 	}
@@ -95,25 +102,34 @@ class Mutations {
 	}
 
 	async deleteTicket(_, args, context) {
-		await getUserDetails(context);
-		if (!args.id) {
-			throw Error(`Please provide Id to be able to delete a ticket `);
+		try {
+			await getUserDetails(context);
+			if (!args.id) {
+				throw Error(`Please provide Id to be able to delete a ticket `);
+			}
+			const deletedTicket = await ticket_model.deleteTicket(args);
+
+			if (!deletedTicket) {
+				throw new Error(`Ticket with id of ${args.id} has already been deleted`);
+			}
+			return {
+				id: args.id,
+				info: `Ticket with the ID of ${args} has been deleted`,
+			};
+		} catch (error) {
+			throw new Error(error);
 		}
-		const deletedTicket = await ticket_model.deleteTicket(args);
-
-		if (!deletedTicket) throw new Error(`Ticket with id of ${args.id} has already been deleted`);
-
-		return {
-			id: args.id,
-			info: `Ticket with the ID of ${args} has been deleted`,
-		};
 	}
 
 	async updateTicket(root, args, context) {
-		await getUserDetails(context);
-		const updatedTicket = await ticket_model.updateTicket(args);
+		try {
+			await getUserDetails(context);
+			const updatedTicket = await ticket_model.updateTicket(args);
 
-		return updatedTicket;
+			return updatedTicket;
+		} catch (error) {
+			throw new Error(error);
+		}
 	}
 }
 
