@@ -19,7 +19,7 @@ class App extends Component {
   state = {
     display_modal: false,
     resolve_ticket: {
-      display_solve_ticket_modal: true,
+      display_solve_ticket_modal: false,
       ticket_id: null,
     },
   };
@@ -37,6 +37,7 @@ class App extends Component {
 
   render() {
     const { updateModal } = this;
+    const { resolve_ticket } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -52,6 +53,7 @@ class App extends Component {
         <AppContextProvider
           value={{
             updateModal,
+            resolve_ticket,
           }}
         >
           <Route

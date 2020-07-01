@@ -1,44 +1,51 @@
 .App {
-  text-align: center;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 16px;
+	text-align: center;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-size: 16px;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+	height: 40vmin;
+	pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+	background-color: #282c34;
+	min-height: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: white;
 }
 
 .display_modal,
 .display_solve_ticket_modal {
-  width: 100%;
-  min-height: 100%;
-  top: 0px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  z-index: 1;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-tap-highlight-color: transparent;
+	width: 100%;
+	min-height: 100%;
+	top: 0px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	z-index: 1;
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Styles for All error messages */
+.error-msg {
+	color: red;
+	font-size: larger;
+	font-weight: 400;
 }

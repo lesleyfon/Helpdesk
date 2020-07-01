@@ -16,34 +16,34 @@ import { AUTH_TOKEN } from "./constants";
 // Connecting to the api exposed by the graphql server
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000",
+	uri: "http://localhost:4000",
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem(AUTH_TOKEN);
+	const token = localStorage.getItem(AUTH_TOKEN);
 
-  return {
-    headers: {
-      ...headers,
-      Authorization: token ? `Bearer ${token}` : " ",
-    },
-  };
+	return {
+		headers: {
+			...headers,
+			Authorization: token ? `Bearer ${token}` : " ",
+		},
+	};
 });
 
 // Creating a graphql client instance by passing in the httpLink to connect to the server.
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+	link: authLink.concat(httpLink),
+	cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
-  <Router>
-    {/* We wrapped the whole app in the Apollo-provider to be able to exposed the client to all child components */}
-    <ApolloProvider client={client}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </ApolloProvider>
-  </Router>,
-  document.getElementById("root")
+	<Router>
+		{/* We wrapped the whole app in the Apollo-provider to be able to exposed the client to all child components */}
+		<ApolloProvider client={client}>
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>
+		</ApolloProvider>
+	</Router>,
+	document.getElementById("root")
 );

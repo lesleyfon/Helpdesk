@@ -1,109 +1,128 @@
 const db = require("./../data/db.config");
 
 class Tickets {
-  tableName = "ticket";
+	tableName = "ticket";
 
-  //Find all tickets
-  fetchAllTickets() {
-    return db(this.tableName);
-  }
+	//Find all tickets
+	fetchAllTickets() {
+		return db(this.tableName);
+	}
 
-  //Add a new ticket to the database
-  async createTicket(ticket) {
-    await db(this.tableName).insert(ticket);
+	//Add a new ticket to the database
+	async createTicket(ticket) {
+		try {
+			await db(this.tableName).insert(ticket);
 
-    const newTicket = await this.findTicket({ title: ticket.title });
+			const newTicket = await this.findTicket({ title: ticket.title });
 
-    // Create a status for a ticket when  a ticket is created
-    const [status] = await db("ticket_status")
-      .insert({
-        ticket_id: newTicket.id,
-      })
-      .returning("*");
+			// Create a status for a ticket when  a ticket is created
+			const [status] = await db("ticket_status")
+				.insert({
+					ticket_id: newTicket.id,
+				})
+				.returning("*");
 
-    const [created_by] = await db("user").where({ id: ticket.created_by });
+			const [created_by] = await db("user").where({ id: ticket.created_by });
 
-    return {
-      ...newTicket,
-      created_by,
-      ticket_status: status,
-    };
-  }
+			return {
+				...newTicket,
+				created_by,
+				ticket_status: status,
+			};
+		} catch (error) {
+			throw new Error({
+				message: error.message,
+			});
+		}
+	}
 
-  // find ticket based on what is passed in as filter
-  async findTicket(filter) {
-    return db(this.tableName).where(filter).first();
-  }
+	// find ticket based on what is passed in as filter
+	async findTicket(filter) {
+		return db(this.tableName).where(filter).first();
+	}
 
-  //returns all the tickets Status
-  async allTicketStatus() {
-    return db("ticket_status");
-  }
+	//returns all the tickets Status
+	async allTicketStatus() {
+		return db("ticket_status");
+	}
 
-  // Returns all tickets that have been resolved
-  resolvedTickets() {
-    return db("resolved_tickets");
-  }
+	// Returns all tickets that have been resolved
+	resolvedTickets() {
+		return db("resolved_tickets");
+	}
 
-  // Returns a specific status for a specific ticket using the ticket ids
-  async ticketStatus(ticket_id) {
-    const ticket = await db(this.tableName)
-      .join(`ticket_status`, `ticket_status.ticket_id`, `${this.tableName}.id`)
-      .where(`ticket_status.ticket_id`, ticket_id)
-      .first();
+	// Returns a specific status for a specific ticket using the ticket ids
+	async ticketStatus(ticket_id) {
+		const ticket = await db(this.tableName)
+			.join(`ticket_status`, `ticket_status.ticket_id`, `${this.tableName}.id`)
+			.where(`ticket_status.ticket_id`, ticket_id)
+			.first();
 
-    return ticket;
-  }
+		return ticket;
+	}
 
-  // Method for solving a ticket, It Updates a ticket status from pending(default) to solved, which means a ticket has been solved
-  async solveTicket({ solution, ticket_id, solved_by }) {
-    await db("ticket_status")
-      .where({ ticket_id })
-      .update({ state: "solved" })
-      .returning("*");
+	// Method for solving a ticket, It Updates a ticket status from pending(default) to solved, which means a ticket has been solved
+	async solveTicket({ solution, ticket_id, solved_by }) {
+		try {
+			// Ticket To Be updated
+			const ttbu = await db("ticket_status").where({ ticket_id: ticket_id }).first();
 
-    const [ticketSolution] = await db("resolved-tickets")
-      .where({ ticket_id })
-      .update({
-        solution,
-        resolved_by: solved_by,
-        ticket_id,
-      })
-      .returning("*");
+			//Update ticket
+			await db("ticket_status")
+				.where({ ticket_id: ticket_id })
+				.update({ ...ttbu, state: "solved" })
+				.returning("*");
 
-    const ticket = this.findTicket({ id: ticketSolution.ticket_id });
-    const resolved_by = db("user")
-      .where({ id: ticketSolution.resolved_by })
-      .first();
+			/**
+			 * Do you want a ticket to have multiple solutions?
+			 * OR do you want a ticket to have just one solution?
+			 *
+			 * Answer:
+			 *  Multiple solutions so that different users can give different answers to a questions
+			 */
+			const [ticketSolution] = await db("resolved_tickets")
+				.insert({
+					solution,
+					resolved_by: solved_by,
+					ticket_id,
+				})
+				.returning("*");
 
-    return {
-      id: ticketSolution.id,
-      solution: ticketSolution.solution,
-      ticket,
-      resolved_by,
-    };
-  }
+			const ticket = this.findTicket({ id: ticketSolution.ticket_id });
 
-  //Model to Delete a ticket
-  async deleteTicket(id) {
-    const ticketToDelete = await this.findTicket(id);
-    if (!ticketToDelete)
-      throw new Error(`Ticket with the id of ${id.id} does not exist`);
+			const resolved_by = db("user").where({ id: ticketSolution.resolved_by }).first();
+			return {
+				id: ticketSolution.id,
+				solution: ticketSolution.solution,
+				ticket,
+				resolved_by,
+			};
+		} catch (error) {
+			throw new Error({
+				message: error.message,
+			});
+		}
+	}
 
-    const ticket = await db(this.tableName).where(id).del();
-    return ticket;
-  }
+	//Model to Delete a ticket
+	async deleteTicket(id) {
+		const ticketToDelete = await this.findTicket(id);
+		if (!ticketToDelete) throw new Error(`Ticket with the id of ${id.id} does not exist`);
 
-  async updateTicket(ticket) {
-    if (!ticket.id) throw new Error(`Ticket Id is needed to update a ticket`);
+		const ticket = await db(this.tableName).where(id).del();
+		return ticket;
+	}
 
-    const [updatedTicket] = await db(this.tableName)
-      .where({ id: ticket.id })
-      .update(ticket)
-      .returning("*");
+	async updateTicket(ticket) {
+		if (!ticket.id) throw new Error(`Ticket Id is needed to update a ticket`);
 
-    return updatedTicket;
-  }
+		const [updatedTicket] = await db(this.tableName)
+			.where({ id: ticket.id })
+			.update(ticket)
+			.returning("*");
+
+		return updatedTicket;
+	}
 }
 
 module.exports = Tickets;
