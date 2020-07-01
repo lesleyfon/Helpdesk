@@ -14,7 +14,7 @@ class Tickets {
 			await db(this.tableName).insert(ticket);
 
 			const newTicket = await this.findTicket({ title: ticket.title });
-			console.log("newTicket", newTicket);
+
 			// Create a status for a ticket when  a ticket is created
 			const [status] = await db("ticket_status")
 				.insert({
@@ -22,10 +22,8 @@ class Tickets {
 				})
 				.returning("*");
 
-			console.log("status", status);
-
 			const [created_by] = await db("user").where({ id: ticket.created_by });
-			console.log("Created by", created_by);
+
 			return {
 				...newTicket,
 				created_by,
@@ -66,9 +64,13 @@ class Tickets {
 	// Method for solving a ticket, It Updates a ticket status from pending(default) to solved, which means a ticket has been solved
 	async solveTicket({ solution, ticket_id, solved_by }) {
 		try {
+			// Ticket To Be updated
+			const ttbu = await db("ticket_status").where({ ticket_id: ticket_id }).first();
+
+			//Update ticket
 			await db("ticket_status")
 				.where({ ticket_id: ticket_id })
-				.update({ state: "solved" })
+				.update({ ...ttbu, state: "solved" })
 				.returning("*");
 
 			/**
