@@ -77,3 +77,14 @@ export const DELETE_MUTATION = gql`
 		}
 	}
 `;
+export const USER_QUERY = gql`
+	query {
+		allUsers {
+			id
+			first_name
+			last_name
+			email
+			phone_number
+		}
+	}
+`;
