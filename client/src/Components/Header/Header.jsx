@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withRouter } from "react-router-dom";
 // Styles
 import "./Header.css";
 import { AUTH_TOKEN } from "../../constants";
+
+// Context
+import AppContext from "./../../Context/AppContext";
 
 function Header({ history }) {
 	// Log out a user
 	const logout = () => {
 		localStorage.removeItem(AUTH_TOKEN);
 		history.push("/register");
+	};
+	const { updateModal } = useContext(AppContext);
+
+	const showAddTicketModal = () => {
+		updateModal({ display_modal: true });
 	};
 	return (
 		<nav className="navbar navbar-expand-lg navbar-mainbg">
@@ -25,7 +33,7 @@ function Header({ history }) {
 						<i className="fas fa-tachometer-alt"></i>Dashboard
 					</li>
 
-					<li className="nav-item">
+					<li className="nav-item" onClick={showAddTicketModal}>
 						<i className="far fa-clone"></i>Add a Ticket
 					</li>
 					<li className="nav-item">

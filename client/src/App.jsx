@@ -16,80 +16,76 @@ import AddTicketModal from "./Components/AddTicketModal/AddTicketModal.jsx";
 import SolveTicketModal from "./Components/SolveTicketModal/SolveTicketModal";
 
 class App extends Component {
-  state = {
-    display_modal: false,
-    resolve_ticket: {
-      display_solve_ticket_modal: false,
-      ticket_id: null,
-    },
-  };
-  componentDidMount() {
-    const token = localStorage.getItem(AUTH_TOKEN);
-    const { history } = this.props;
-    if (!token) {
-      history.push("/register");
-    }
-  }
+	state = {
+		display_modal: false, // Display the modal for adding a ticket
+		resolve_ticket: {
+			display_solve_ticket_modal: false, // Displays modal for Adding a solution to a ticket
+			ticket_id: null,
+		},
+	};
+	componentDidMount() {
+		const token = localStorage.getItem(AUTH_TOKEN);
+		const { history } = this.props;
+		if (!token) {
+			history.push("/register");
+		}
+	}
 
-  updateModal = (updateModalState) => {
-    this.setState((prevState) => ({ ...this.state, ...updateModalState }));
-  };
+	updateModal = (updateModalState) => {
+		this.setState((prevState) => ({ ...this.state, ...updateModalState }));
+	};
 
-  render() {
-    const { updateModal } = this;
-    const { resolve_ticket } = this.state;
-    return (
-      <div className="App">
-        <header className="App-header">
-          {" "}
-          <Header />{" "}
-        </header>
-        <Route
-          path="/register"
-          exact
-          component={(props) => <Registration {...props} />}
-        />
+	render() {
+		const { updateModal } = this;
+		const { resolve_ticket } = this.state;
+		return (
+			<div className="App">
+				<AppContextProvider
+					value={{
+						updateModal,
+						resolve_ticket,
+					}}
+				>
+					<header className="App-header">
+						{" "}
+						<Header />{" "}
+					</header>
+					<Route
+						path="/register"
+						exact
+						component={(props) => <Registration {...props} />}
+					/>
 
-        <AppContextProvider
-          value={{
-            updateModal,
-            resolve_ticket,
-          }}
-        >
-          <Route
-            exact
-            path="/home"
-            component={(props) => <Home {...props} />}
-          />
-          <div
-            className={this.state.display_modal ? "display_modal" : ""}
-            style={{
-              display: `${this.state.display_modal ? "flex" : "none"}`,
-            }}
-          >
-            <AddTicketModal />
-          </div>
+					<Route exact path="/home" component={(props) => <Home {...props} />} />
+					<div
+						className={this.state.display_modal ? "display_modal" : ""}
+						style={{
+							display: `${this.state.display_modal ? "flex" : "none"}`,
+						}}
+					>
+						<AddTicketModal />
+					</div>
 
-          <div
-            className={`${
-              this.state.resolve_ticket.display_solve_ticket_modal
-                ? "display_solve_ticket_modal"
-                : ""
-            }`}
-            style={{
-              display: `${
-                this.state.resolve_ticket.display_solve_ticket_modal
-                  ? "flex"
-                  : "none"
-              }`,
-            }}
-          >
-            <SolveTicketModal />
-          </div>
-        </AppContextProvider>
-      </div>
-    );
-  }
+					<div
+						className={`${
+							this.state.resolve_ticket.display_solve_ticket_modal
+								? "display_solve_ticket_modal"
+								: ""
+						}`}
+						style={{
+							display: `${
+								this.state.resolve_ticket.display_solve_ticket_modal
+									? "flex"
+									: "none"
+							}`,
+						}}
+					>
+						<SolveTicketModal />
+					</div>
+				</AppContextProvider>
+			</div>
+		);
+	}
 }
 
 export default withRouter(App);
