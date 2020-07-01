@@ -4,12 +4,12 @@ import { Mutation } from "react-apollo";
 import { DELETE_MUTATION, GET_TICKETS_QUERY } from "./../../GraphQL/Queries";
 import AppContext from "../../Context/AppContext";
 
+import { loggedInUser } from "./../../Utils/ConvertPhone";
 //The first Params is the cache object which we can use to read and write data
 // The second Params id the data that we get from what ever function we just executed
 const updateCache = (cache, { data: { deleteTicket } }) => {
 	// Get all tickets from the cache
 	const { allTickets } = cache.readQuery({ query: GET_TICKETS_QUERY });
-	console.log(allTickets);
 	cache.writeQuery({
 		query: GET_TICKETS_QUERY,
 		data: {
@@ -19,8 +19,6 @@ const updateCache = (cache, { data: { deleteTicket } }) => {
 };
 
 function TicketCard({ ticket }) {
-	// const [solveTicketInfo, setSolveTicketInfo] = useState(true);
-
 	//Format the ticket Date to a readable String
 	const date = new Date(Number(ticket.created_at));
 
@@ -36,18 +34,22 @@ function TicketCard({ ticket }) {
 			<div className="ticket-details">
 				<div className="title-info">
 					<p className="ticket-title"> Question: {ticket.title}</p>
-					<Mutation mutation={DELETE_MUTATION} update={updateCache}>
-						{(deleteMutation) => {
-							return (
-								<MdDelete
-									onClick={(e) => {
-										e.preventDefault();
-										deleteMutation({ variables: { id: id } });
-									}}
-								/>
-							);
-						}}
-					</Mutation>
+
+					{/* This conditional is to check the current users that is logged in's id , if matches the id of a person that created that specific ticket. If so display the delete button. This make it so that not anyone can delete a ticket */}
+					{ticket.created_by.id === loggedInUser().userId && (
+						<Mutation mutation={DELETE_MUTATION} update={updateCache}>
+							{(deleteMutation) => {
+								return (
+									<MdDelete
+										onClick={(e) => {
+											e.preventDefault();
+											deleteMutation({ variables: { id: id } });
+										}}
+									/>
+								);
+							}}
+						</Mutation>
+					)}
 				</div>
 
 				<p className="ticket-description">{ticket.description}</p>
@@ -55,7 +57,8 @@ function TicketCard({ ticket }) {
 					<p id="category">{ticket.category}</p>
 					<p>
 						{" "}
-						asked: {`${date.toLocaleDateString()}`} by <span> {ticket.created_by.first_name}</span>
+						asked: {`${date.toLocaleDateString()}`} by{" "}
+						<span> {ticket.created_by.first_name}</span>
 					</p>
 				</div>
 				<small>

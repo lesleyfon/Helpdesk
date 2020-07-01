@@ -10,6 +10,7 @@ export const GET_TICKETS_QUERY = gql`
 			category
 			created_at
 			created_by {
+				id
 				first_name
 				last_name
 			}
@@ -59,6 +60,7 @@ export const ADD_TICKET_MUTATION = gql`
 			category
 			created_at
 			created_by {
+				id
 				first_name
 				last_name
 			}
