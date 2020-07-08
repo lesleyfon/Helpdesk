@@ -9,9 +9,8 @@ class Question extends Component {
 		} = this.props;
 
 		const [_, __, id, title] = pathname.split("/");
-		console.log(id);
 		return (
-			<div>
+			<main>
 				<div className="Ticket ">
 					<Query query={Get_TICKET_AT_ID} variables={{ id: id }}>
 						{({ loading, error, data }) => {
@@ -20,7 +19,7 @@ class Question extends Component {
 						}}
 					</Query>
 				</div>
-			</div>
+			</main>
 		);
 	}
 }

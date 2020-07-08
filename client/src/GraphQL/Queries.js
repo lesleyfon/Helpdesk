@@ -98,6 +98,14 @@ export const Get_TICKET_AT_ID = gql`
 			title
 			description
 			category
+			created_at
+			created_by {
+				id
+				first_name
+				last_name
+				email
+				phone_number
+			}
 		}
 	}
 `;

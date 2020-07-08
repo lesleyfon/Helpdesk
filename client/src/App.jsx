@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 
 //Router
-import { Route, withRouter, Redirect } from "react-router-dom";
+import {
+	Route,
+	withRouter,
+	// Redirect
+} from "react-router-dom";
+
 //Components
 import Registration from "./Page/Registration/Registration";
 import Header from "./Components/Header/Header";
