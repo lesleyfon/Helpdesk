@@ -1,11 +1,25 @@
 import React, { Component } from "react";
+import { Query } from "react-apollo";
+import { Get_TICKET_AT_ID } from "../../GraphQL/Queries";
 
 class Question extends Component {
 	render() {
-		console.log("Here", this.props);
+		const {
+			location: { pathname },
+		} = this.props;
+
+		const [_, __, id, title] = pathname.split("/");
+		console.log(id);
 		return (
 			<div>
-				Questiorfgji;hwetr;igojwhq98yt53toie;fdjpiotejpo ldl;efjkfi 0hojbio4 ;ekfdlmsfeaoin
+				<div className="Ticket ">
+					<Query query={Get_TICKET_AT_ID} variables={{ id: id }}>
+						{({ loading, error, data }) => {
+							console.log(data);
+							return <h1>Hello World</h1>;
+						}}
+					</Query>
+				</div>
 			</div>
 		);
 	}

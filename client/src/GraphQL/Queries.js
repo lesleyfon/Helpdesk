@@ -90,3 +90,14 @@ export const USER_QUERY = gql`
 		}
 	}
 `;
+
+export const Get_TICKET_AT_ID = gql`
+	query fetchTicketAtMutation($id: String!) {
+		fetchTicket(id: $id) {
+			id
+			title
+			description
+			category
+		}
+	}
+`;
