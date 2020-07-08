@@ -5,6 +5,7 @@ import { DELETE_MUTATION, GET_TICKETS_QUERY } from "./../../GraphQL/Queries";
 import AppContext from "../../Context/AppContext";
 
 import { loggedInUser } from "./../../Utils/ConvertPhone";
+import { useHistory } from "react-router-dom";
 //The first Params is the cache object which we can use to read and write data
 // The second Params id the data that we get from what ever function we just executed
 const updateCache = (cache, { data: { deleteTicket } }) => {
@@ -28,12 +29,27 @@ function TicketCard({ ticket }) {
 	// GraphQL mutation for deleting a ticket
 
 	const { updateModal } = useContext(AppContext);
+	const history = useHistory();
 
+	const routeToQuestion = (title, ticket_id) => {
+		// Format the ticket title to not have spaces or accept /
+
+		title = title.trim(); // Remove wide spaces after each title
+		title = title.replace(/[^a-zA-Z0-9]/g, "_").replace(/__/g, "_"); // Regext to replace all unwanted characters with an underscore
+
+		history.push(`/question/${ticket_id}/${title}`);
+	};
 	return (
 		<div>
 			<div className="ticket-details">
 				<div className="title-info">
-					<p className="ticket-title"> Question: {ticket.title}</p>
+					<p
+						className="ticket-title"
+						onClick={() => routeToQuestion(ticket.title, ticket.id)}
+					>
+						{" "}
+						Question: {ticket.title}
+					</p>
 
 					{/* This conditional is to check the current users that is logged in's id , if matches the id of a person that created that specific ticket. If so display the delete button. This make it so that not anyone can delete a ticket */}
 					{ticket.created_by.id === loggedInUser().userId && (

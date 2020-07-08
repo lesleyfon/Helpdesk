@@ -14,6 +14,7 @@ import { AUTH_TOKEN } from "./constants";
 import Home from "./Page/Home/Home";
 import AddTicketModal from "./Components/AddTicketModal/AddTicketModal.jsx";
 import SolveTicketModal from "./Components/SolveTicketModal/SolveTicketModal";
+import Question from "./Page/Question/Question";
 
 class App extends Component {
 	state = {
@@ -50,7 +51,7 @@ class App extends Component {
 						{" "}
 						<Header />{" "}
 					</header>
-					<Redirect from="/" to="/home" />
+					{/* <Redirect from="/" to="/home" /> */}
 					<Route
 						path="/register"
 						exact
@@ -83,6 +84,10 @@ class App extends Component {
 					>
 						<SolveTicketModal />
 					</div>
+					<Route
+						path="/question/:ticket_id/:title"
+						component={(props) => <Question {...props} />}
+					/>
 				</AppContextProvider>
 			</div>
 		);

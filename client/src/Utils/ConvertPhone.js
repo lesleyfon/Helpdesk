@@ -15,6 +15,6 @@ export const formatNumber = function (telNumber) {
 export const loggedInUser = () => {
 	// Hide  the secrete in an env file
 	const { userId, email } = jwt.verify(localStorage.getItem(AUTH_TOKEN), REACT_APP_JWT_SECRETE);
-	console.log(userId);
+
 	return { userId, email };
 };
