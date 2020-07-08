@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { AUTH_TOKEN } from "../constants";
 
+const { REACT_APP_JWT_SECRETE } = process.env;
 export const formatNumber = function (telNumber) {
 	let str = telNumber.split("").splice(6, 10);
 	str.unshift("******");
@@ -13,10 +14,7 @@ export const formatNumber = function (telNumber) {
 
 export const loggedInUser = () => {
 	// Hide  the secrete in an env file
-	const { userId, email } = jwt.verify(
-		localStorage.getItem(AUTH_TOKEN),
-		"273146745YJFMJDABFLJKUSHGDFLNB"
-	);
-
+	const { userId, email } = jwt.verify(localStorage.getItem(AUTH_TOKEN), REACT_APP_JWT_SECRETE);
+	console.log(userId);
 	return { userId, email };
 };
