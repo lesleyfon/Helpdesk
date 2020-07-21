@@ -1,12 +1,13 @@
-.question {
+.question-answer-section {
 	width: 100%;
 }
 
-.question_ticket {
+.question {
 	width: 900px;
-	height: 100vh;
+	height: 100%;
 	margin: 0 auto;
 	border: 1px solid red;
+	padding-bottom: 30px;
 }
 .question_ticket section {
 	text-align: left;

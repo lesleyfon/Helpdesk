@@ -20,7 +20,6 @@ class QuestionHeader extends Component {
 
 							let date = new Date(Number(fetchTicket.created_at)); // Format date. Returns a date Object
 							date = `${date.toLocaleDateString()}`; // Convert it to local string
-							console.log(fetchTicket);
 							return (
 								<section>
 									<h2>{fetchTicket.title}</h2>
