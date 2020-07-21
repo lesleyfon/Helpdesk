@@ -1,0 +1,14 @@
+.question {
+	width: 100%;
+}
+
+.question_ticket {
+	width: 900px;
+	height: 100vh;
+	margin: 0 auto;
+	border: 1px solid red;
+}
+.question_ticket section {
+	text-align: left;
+	margin: 0 0 0 20px;
+}

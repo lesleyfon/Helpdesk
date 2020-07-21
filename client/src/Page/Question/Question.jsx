@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { Get_TICKET_AT_ID } from "../../GraphQL/Queries";
-
+import "./Question.css";
 class Question extends Component {
 	render() {
 		const {
@@ -11,8 +11,8 @@ class Question extends Component {
 		const [, , id] = pathname.split("/"); // the [ , , ] represents the first two elements in the array. because we don't need those variables and need just the id
 
 		return (
-			<main>
-				<div className="Ticket ">
+			<main className="question">
+				<div className="question_ticket">
 					<Query query={Get_TICKET_AT_ID} variables={{ id: id }}>
 						{({ loading, error, data }) => {
 							if (loading) return <h1>Fetching data</h1>;
