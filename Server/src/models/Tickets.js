@@ -137,9 +137,8 @@ class Tickets {
 				throw Error(`Couldn't find ticket with ID:${ticket_id}`);
 			}
 
-			const ticketSolution = db("resolved_tickets").where("ticket_id", ticket_id);
+			const ticketSolution = await db("resolved_tickets").where("ticket_id", ticket_id);
 			console.log(ticketSolution);
-
 			return ticketSolution;
 		} catch (error) {
 			// Error Handling

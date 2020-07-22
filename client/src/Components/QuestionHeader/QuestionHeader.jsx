@@ -3,12 +3,7 @@ import { Query } from "react-apollo";
 import { Get_TICKET_AT_ID } from "./../../GraphQL/Queries.js";
 class QuestionHeader extends Component {
 	render() {
-		const {
-			location: { pathname },
-		} = this.props;
-
-		const [, , id] = pathname.split("/"); // the [ , , ] represents the first two elements in the array. because we don't need those variables and need just the id
-
+		const { id } = this.props;
 		return (
 			<section className="question">
 				<div className="question_ticket">
