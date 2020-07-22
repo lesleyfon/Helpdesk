@@ -113,6 +113,7 @@ export const Get_TICKET_AT_ID = gql`
 export const FETCH_TICKET_SOLUTIONS = gql`
 	query FetchTicketQuery($id: ID!) {
 		ticketSolution(id: $id) {
+			id
 			solution
 			ticket_id
 			resolved_by

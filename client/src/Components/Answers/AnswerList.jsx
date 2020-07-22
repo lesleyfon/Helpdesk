@@ -17,13 +17,25 @@ class AnswerList extends Component {
 						if (error) {
 							return <h3>Error Fetching Solutions To tickets</h3>;
 						}
+
+						// Destructure the ticketSolution key value from the data object
 						const { ticketSolution } = data;
+
 						// When theres data returned and the length of the array is greater than Zero
 						if (Array.isArray(ticketSolution) && ticketSolution.length === 0) {
 							return <h2>No Suggested Solution Yet To This Question </h2>;
 						}
+
+						// Render Tickets with Data in the Array
 						if (Array.isArray(ticketSolution) && ticketSolution.length > 0) {
-							return <div>Success</div>;
+							return ticketSolution.map((solution, index) => (
+								<div key={solution.id}>
+									{" "}
+									<h3>Answer {index + 1}:</h3>
+									<p>{solution.solution}</p>
+									<p>Solved By: {solution.resolved_by}</p>
+								</div>
+							));
 						}
 					}}
 				</Query>
