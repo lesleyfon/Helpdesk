@@ -138,7 +138,6 @@ class Tickets {
 			}
 
 			const ticketSolution = await db("resolved_tickets").where("ticket_id", ticket_id);
-			console.log(ticketSolution);
 			return ticketSolution;
 		} catch (error) {
 			// Error Handling

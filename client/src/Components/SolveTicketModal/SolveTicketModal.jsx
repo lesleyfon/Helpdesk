@@ -5,12 +5,10 @@ import { RESOLVE_TICKET, GET_TICKETS_QUERY } from "./../../GraphQL/Queries";
 import { AUTH_TOKEN } from "../../constants";
 
 const updateCache = (cache, { data: { solveATicket } }) => {
-	// console.log(solveATicket);
 	let { allTickets } = cache.readQuery({ query: GET_TICKETS_QUERY });
 
 	allTickets = allTickets.map((ticket) => {
 		if (ticket.id === solveATicket.ticket.id) {
-			console.log("Before", ticket);
 			ticket = {
 				...ticket,
 				ticket_status: {
@@ -18,7 +16,7 @@ const updateCache = (cache, { data: { solveATicket } }) => {
 					state: "solved",
 				},
 			};
-			console.log("After", ticket);
+
 			return ticket;
 		}
 		return ticket;
@@ -95,7 +93,9 @@ export default class SolveTicketModal extends Component {
 									rows="7"
 									value={this.state.solution}
 									placeholder="Solution"
-									onChange={(event) => this.setState({ solution: event.target.value })}
+									onChange={(event) =>
+										this.setState({ solution: event.target.value })
+									}
 								/>
 
 								{/* Is there is an error */}
@@ -109,7 +109,10 @@ export default class SolveTicketModal extends Component {
 										// PRevent submitting an empty form textarea
 										if (this.state.solution.length === 0) {
 											this.setState({
-												error: { status: true, message: "Can't submit an empty Form" },
+												error: {
+													status: true,
+													message: "Can't submit an empty Form",
+												},
 											});
 										}
 

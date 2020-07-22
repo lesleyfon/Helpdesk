@@ -137,7 +137,7 @@ export default class SignUp extends Component {
 		} = data;
 
 		localStorage.setItem(AUTH_TOKEN, token);
-		console.log(this.props.history);
+
 		this.props.history.push("/home");
 	}
 }

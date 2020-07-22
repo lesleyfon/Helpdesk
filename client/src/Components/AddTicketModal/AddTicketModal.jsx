@@ -14,8 +14,6 @@ const updateCache = (cache, { data: { addTicket } }) => {
 	// Pass in the Query we need to fetch after a successful mutation
 	// This returns all the data from the cache
 	const { allTickets } = cache.readQuery({ query: GET_TICKETS_QUERY });
-	console.log("allTickets,", allTickets);
-	console.log("NEw Ticker", addTicket);
 	//We want to write a cache and pass in the newly created ticket
 	// First we have to pass in the the query for getting all the tickets
 	// then we concat the addTicket to the allTickets array so it populates the all tickets array and renders on the page
