@@ -41,7 +41,7 @@ exports.up = async function (knex) {
 	});
 	await knex.schema.createTable("resolved_tickets", (table) => {
 		table.increments("id");
-		table.string("solution").notNullable();
+		table.string("solution", 10000).notNullable();
 		table
 			.uuid("ticket_id")
 			.unsigned()

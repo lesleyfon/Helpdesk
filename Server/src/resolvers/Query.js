@@ -103,6 +103,7 @@ class Query {
 
 	async ticketSolution(_, { id: ticket_id }, context) {
 		const ticketSolutions = await ticket_model.fetchTicketSolution(ticket_id);
+
 		return ticketSolutions;
 	}
 }

@@ -92,9 +92,13 @@ class Tickets {
 				})
 				.returning("*");
 
-			const ticket = this.findTicket({ id: ticketSolution.ticket_id });
+			const ticket = await this.findTicket({ id: ticketSolution.ticket_id });
 
-			const resolved_by = db("user").where({ id: ticketSolution.resolved_by }).first();
+			const resolved_by = await db("user").where({ id: ticketSolution.resolved_by }).first();
+
+			console.log(ticketSolution);
+			console.log(ticket);
+			console.log(resolved_by);
 			return {
 				id: ticketSolution.id,
 				solution: ticketSolution.solution,
@@ -102,6 +106,7 @@ class Tickets {
 				resolved_by,
 			};
 		} catch (error) {
+			console.log(error);
 			throw new Error({
 				message: error.message,
 			});

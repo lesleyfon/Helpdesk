@@ -19,6 +19,7 @@ type User {
 }
 
 type Solution {
+	id: ID!
 	solution: String!
 	ticket_id: ID!
 	resolved_by: ID!
