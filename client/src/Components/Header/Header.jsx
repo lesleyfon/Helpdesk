@@ -7,7 +7,7 @@ import { AUTH_TOKEN } from "../../constants";
 // Context
 import AppContext from "./../../Context/AppContext";
 
-function Header({ history }) {
+function Header({ history, ...props }) {
 	// Log out a user
 	const logout = () => {
 		localStorage.removeItem(AUTH_TOKEN);
@@ -17,6 +17,10 @@ function Header({ history }) {
 
 	const showAddTicketModal = () => {
 		updateModal({ display_modal: true });
+	};
+
+	const navRoute = (path) => {
+		history.push(`/${path}`);
 	};
 	return (
 		<nav className="navbar navbar-expand-lg navbar-mainbg">
@@ -29,7 +33,7 @@ function Header({ history }) {
 						<div className="right"></div>
 					</div>
 
-					<li className="nav-item">
+					<li className="nav-item" onClick={() => navRoute("home")}>
 						<i className="fas fa-tachometer-alt"></i>Dashboard
 					</li>
 

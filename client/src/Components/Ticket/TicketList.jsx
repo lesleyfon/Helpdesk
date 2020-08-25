@@ -23,8 +23,8 @@ export default class TicketList extends Component {
 			<>
 				<Query query={GET_TICKETS_QUERY}>
 					{(results) => {
-						const { data } = results;
-
+						const { data, error } = results;
+						if (error) console.log(Object.keys(error));
 						if (data) {
 							const { allTickets } = data;
 

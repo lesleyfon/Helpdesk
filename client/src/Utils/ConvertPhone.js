@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { AUTH_TOKEN } from "../constants";
 
-const { REACT_APP_JWT_SECRETE } = process.env;
+export const { REACT_APP_JWT_SECRETE } = process.env;
 export const formatNumber = function (telNumber) {
 	let str = telNumber.split("").splice(6, 10);
 	str.unshift("******");

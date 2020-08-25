@@ -62,7 +62,7 @@ export default class SolveTicketModal extends Component {
 					updateModal({ resolve_ticket });
 				}}
 				onError={(err) => {
-					console.log(err);
+					console.log("Solved Ticket", err);
 				}}
 				update={updateCache}
 			>
