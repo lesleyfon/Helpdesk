@@ -15,6 +15,7 @@ class Query {
 
 			return allUsers;
 		} catch (error) {
+			console.log(error.message, "\n\n\n\n\n\n d");
 			throw new Error({
 				message: "Server Error",
 				error,
@@ -104,7 +105,10 @@ class Query {
 	async ticketSolution(_, { id: ticket_id }, context) {
 		const ticketSolutions = await ticket_model.fetchTicketSolution(ticket_id);
 
-		return ticketSolutions;
+		return ticketSolutions.map(async (solution) => ({
+			...solution,
+			resolved_by: await user_model.findUser({ id: solution.resolved_by }),
+		}));
 	}
 }
 
