@@ -34,10 +34,10 @@ export default class Home extends Component {
 	render() {
 		return (
 			<div className="ticket-container ">
-				<div className="users aside">
+				{/* <div className="users aside">
 					{" "}
 					<Users />
-				</div>
+				</div> */}
 				<div className="tickets main">
 					<TicketList />
 				</div>
