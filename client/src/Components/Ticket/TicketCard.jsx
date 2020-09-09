@@ -23,6 +23,9 @@ function TicketCard({ ticket }) {
 	//Format the ticket Date to a readable String
 	const date = new Date(Number(ticket.created_at));
 
+	// Split ticket category to a list
+	let category = ticket.category.split(",");
+	console.log(category);
 	//Destructure the ticket id from the ticket props object
 	const { id } = ticket;
 
@@ -70,7 +73,14 @@ function TicketCard({ ticket }) {
 
 				<p className="ticket-description">{ticket.description}</p>
 				<div id="small">
-					<p id="category">{ticket.category}</p>
+					<section>
+						{category.map((c, i) => (
+							<p id="category" key={i}>
+								{c}
+							</p>
+						))}
+					</section>
+
 					<p>
 						{" "}
 						asked: {`${date.toLocaleDateString()}`} by{" "}

@@ -7,7 +7,7 @@ import { AUTH_TOKEN } from "../../constants";
 // Context
 import AppContext from "./../../Context/AppContext";
 
-function Header({ history, ...props }) {
+function Header({ history }) {
 	// Log out a user
 	const logout = () => {
 		localStorage.removeItem(AUTH_TOKEN);

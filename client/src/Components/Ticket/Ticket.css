@@ -100,10 +100,14 @@ p {
 #small p {
 	padding: 7px 10px;
 }
-#small #category {
+#small section {
+	display: flex;
+}
+#small section #category {
 	background-color: #282c34;
 	color: #61dafb;
 	border-radius: 4px;
+	margin-right: 20px;
 }
 
 div small {
