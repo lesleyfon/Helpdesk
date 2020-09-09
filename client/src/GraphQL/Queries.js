@@ -116,7 +116,11 @@ export const FETCH_TICKET_SOLUTIONS = gql`
 			id
 			solution
 			ticket_id
-			resolved_by
+			resolved_by {
+				id
+				first_name
+				last_name
+			}
 		}
 	}
 `;

@@ -18,12 +18,10 @@ export default class Home extends Component {
 	};
 	verifyToken() {
 		try {
-			const token = localStorage.getItem("AUTH_TOKEN");
-
-			const { message } = verify(token, REACT_APP_JWT_SECRETE);
+			const token = localStorage.getItem(AUTH_TOKEN);
+			verify(token, REACT_APP_JWT_SECRETE);
 		} catch (error) {
-			if (error.message === "jwt expired") {
-				console.log("hello");
+			if (error) {
 				localStorage.removeItem("AUTH_TOKEN");
 			}
 		}
