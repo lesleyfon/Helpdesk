@@ -20,8 +20,7 @@ export default class Users extends Component {
 				<div className="user-details-header">Online Users</div>
 				<Query query={USER_QUERY}>
 					{(result) => {
-						const { data, ...error } = result;
-						// console.log(error);
+						const { data } = result;
 						if (data) {
 							const { allUsers } = data;
 
