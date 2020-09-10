@@ -2,7 +2,7 @@
 let path = __dirname;
 path = path.split("/src").join("").trim() + "/.env";
 
-require("dotenv").config({ path: path });
+const dotenv = require("dotenv").config({ path: path });
 
 const knexSeedMigration = {
 	migrations: {
