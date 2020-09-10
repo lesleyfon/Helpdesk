@@ -1,4 +1,4 @@
-// const { DATABASE_URL } = require("./configVariables");
+const { DATABASE_URL } = require("./src/configVariables");
 
 const knexSeedMigration = {
 	migrations: {
@@ -14,7 +14,7 @@ module.exports = {
 	development: {
 		client: "pg",
 		...knexSeedMigration,
-		connection: process.env.DATABASE_URL,
+		connection: process.env.DATABASE_URL || DATABASE_URL,
 	},
 
 	production: {

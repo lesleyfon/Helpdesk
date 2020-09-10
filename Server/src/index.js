@@ -2,7 +2,6 @@ const { GraphQLServer } = require("graphql-yoga");
 const resolvers = require("./resolvers/resolver");
 // const typeDef = require("./typeDefs/schema.graphql");
 
-// console.log(typeDef);
 // Instantiate a graphQL Server
 // Passing in the path to the type def and resolvers
 const server = new GraphQLServer({
