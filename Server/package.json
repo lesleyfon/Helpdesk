@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest test --watchAll",
+    "deploy": "git subtree push --prefix Server heroku master",
     "server": "nodemon src/index.js"
   },
   "repository": {

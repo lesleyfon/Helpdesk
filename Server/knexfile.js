@@ -1,5 +1,5 @@
-const { DATABASE_URL } = require("./src/configVariables");
-
+const { DATABASE_URL } = require("./src/configVariables.js");
+console.log(DATABASE_URL);
 const knexSeedMigration = {
 	migrations: {
 		directory: "./src/data/migrations",
