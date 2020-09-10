@@ -1,5 +1,9 @@
-const { DATABASE_URL } = require("./src/configVariables.js");
-console.log(DATABASE_URL);
+// const { DATABASE_URL } = require("./src/configVariables.js");
+let path = __dirname;
+path = path.split("/src").join("").trim() + "/.env";
+
+require("dotenv").config({ path: path });
+
 const knexSeedMigration = {
 	migrations: {
 		directory: "./src/data/migrations",
@@ -14,7 +18,7 @@ module.exports = {
 	development: {
 		client: "pg",
 		...knexSeedMigration,
-		connection: process.env.DATABASE_URL || DATABASE_URL,
+		connection: process.env.DATABASE_URL,
 	},
 
 	production: {
