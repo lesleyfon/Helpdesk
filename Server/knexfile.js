@@ -1,10 +1,5 @@
-const { DB_NAME, DB_PASSWORD, USER } = require("./configVariables");
+const { DATABASE_URL } = require("./configVariables");
 
-const connection = {
-	database: DB_NAME,
-	user: USER,
-	password: DB_PASSWORD,
-};
 const knexSeedMigration = {
 	migrations: {
 		directory: "./src/data/migrations",
@@ -19,17 +14,13 @@ module.exports = {
 	development: {
 		client: "pg",
 		...knexSeedMigration,
-		connection: {
-			...connection,
-		},
+		connection: DATABASE_URL,
 	},
 
 	production: {
 		client: "pg",
 		...knexSeedMigration,
-		connection: {
-			...connection,
-		},
+		connection: process.env.DATABASE_URL,
 		pool: {
 			min: 2,
 			max: 10,

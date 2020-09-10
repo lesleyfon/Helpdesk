@@ -47,8 +47,9 @@ class Mutations {
 			if (!dbUser) {
 				throw Error(`User with the email of ${args.email} doesn't exist`);
 			}
-			const { password, ...user } = dbUser;
 
+			const { password, ...user } = dbUser;
+			console.log(user);
 			const comparePassword = await verifyPassword(args.password, password);
 
 			if (!comparePassword) throw Error(`Invalid password`);
