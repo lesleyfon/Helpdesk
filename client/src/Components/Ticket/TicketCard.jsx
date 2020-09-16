@@ -25,7 +25,7 @@ function TicketCard({ ticket }) {
 
 	// Split ticket category to a list
 	let category = ticket.category.split(",");
-	console.log(category);
+
 	//Destructure the ticket id from the ticket props object
 	const { id } = ticket;
 
@@ -42,6 +42,15 @@ function TicketCard({ ticket }) {
 
 		history.push(`/question/${ticket_id}/${title}`);
 	};
+
+	const displayAnswerModal = () => {
+		const resolve_ticket = {
+			display_solve_ticket_modal: true,
+			ticket_id: id,
+		};
+
+		updateModal({ resolve_ticket });
+	};
 	return (
 		<div>
 			<div className="ticket-details">
@@ -53,22 +62,42 @@ function TicketCard({ ticket }) {
 						{" "}
 						Question: {ticket.title}
 					</p>
-
-					{/* This conditional is to check the current users that is logged in's id , if matches the id of a person that created that specific ticket. If so display the delete button. This make it so that not anyone can delete a ticket */}
-					{ticket.created_by.id === loggedInUser().userId && (
-						<Mutation mutation={DELETE_MUTATION} update={updateCache}>
-							{(deleteMutation) => {
-								return (
-									<MdDelete
-										onClick={(e) => {
-											e.preventDefault();
-											deleteMutation({ variables: { id: id } });
-										}}
-									/>
-								);
+					<section>
+						<button
+							className="outlined --secondary-color"
+							style={{
+								color: "#184166",
+								background: "#ffffff",
+								border: "1px solid #3ca4ff",
 							}}
-						</Mutation>
-					)}
+							onClick={displayAnswerModal}
+						>
+							Answer Question
+						</button>
+						{/* This conditional is to check the current users that is logged in's id , if matches the id of a person that created that specific ticket. If so display the delete button. This make it so that not anyone can delete a ticket */}
+						{ticket.created_by.id === loggedInUser().userId && (
+							<Mutation mutation={DELETE_MUTATION} update={updateCache}>
+								{(deleteMutation) => {
+									return (
+										<button
+											className="danger"
+											onClick={(e) => {
+												e.preventDefault();
+												deleteMutation({ variables: { id: id } });
+											}}
+											style={{
+												boxShadow: "none",
+												outline: "none",
+											}}
+										>
+											{" "}
+											Delete
+										</button>
+									);
+								}}
+							</Mutation>
+						)}
+					</section>
 				</div>
 
 				<p className="ticket-description">{ticket.description}</p>
@@ -91,14 +120,7 @@ function TicketCard({ ticket }) {
 					Status:{" "}
 					<span
 						className="ticket_status"
-						onClick={() => {
-							const resolve_ticket = {
-								display_solve_ticket_modal: true,
-								ticket_id: id,
-							};
-
-							updateModal({ resolve_ticket });
-						}}
+						onClick={displayAnswerModal}
 						// onMouseOver={() => setSolveTicketInfo(!solveTicketInfo)}
 						// onMouseOut={() => setSolveTicketInfo(!solveTicketInfo)}
 					>
