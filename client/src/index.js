@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
-
 // GraphQL Imports
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
@@ -14,10 +13,11 @@ import App from "./App.jsx";
 import { AUTH_TOKEN } from "./constants";
 
 // Connecting to the api exposed by the graphql server
+console.log(process.env);
 
 const httpLink = createHttpLink({
-	// uri: "https://helpdeskapp.herokuapp.com/",
-	uri: "http://localhost:4000",
+	uri: "https://helpdeskapp.herokuapp.com/",
+	// uri: "http://localhost:4000",
 });
 
 const authLink = setContext((_, { headers }) => {
