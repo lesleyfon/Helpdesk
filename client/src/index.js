@@ -16,7 +16,7 @@ import { AUTH_TOKEN } from "./constants";
 // Connecting to the api exposed by the graphql server
 
 const httpLink = createHttpLink({
-	uri: "http://localhost:4000",
+	uri: "https://helpdeskapp.herokuapp.com/",
 });
 
 const authLink = setContext((_, { headers }) => {
